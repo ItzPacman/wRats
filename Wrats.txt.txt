@@ -1,0 +1,10 @@
+1.Add wagmi
+2.Change colors
+3.New design
+4.Little bit change in smart contracts
+5.Good presentation
+6.Slogan : "Recieve funds privately by sharing only a unique link ! Dont reveal any of your wallet addresses"
+7.Key : Secret key
+8.Diffie helman key exchange!
+9.Whole project should be on nextjs
+10.Deploy with pacman's github
