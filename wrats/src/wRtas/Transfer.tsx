@@ -4,15 +4,15 @@ import EllipticCurve from "elliptic";
 import { ec as EC } from "elliptic";
 import { useContext } from "react";
 import { AppContext } from "./Container";
-// import Abi from "../artifacts/contracts/Logs.sol/Logs.json";
+import Abi from "../artifacts/contracts/wRats.sol/wRats.json";
 import { BsChevronDown } from "react-icons/bs";
 import { ethers } from "ethers";
 import { Notyf } from "notyf";
 import BigNumber from "bignumber.js";
-import { chainOptions } from "../helpers/ChainOptions";
+import { AvaxMetaData } from "../Helpers/AvaxMetaData"
 import "notyf/notyf.min.css";
 import { BiTransfer } from "react-icons/bi";
-import { ERC20ABI } from "../helpers/ERC20ABI";
+import { TokenABI } from "../Helpers/TokenABI";
 import { IsConnected } from "../Helpers/IsConnected";
 import { useLocation } from 'react-router-dom';
 
@@ -83,9 +83,9 @@ const Transfer = () => {
   var receipentAddress: string;
 
 
-  useMemo(() => {
+  useEffect(() => {
 
-    chainOptions.map((chain) => {
+    AvaxMetaData.map((chain: any) => {
 
       if (network === chain.name) {
         setbyDefault(chain.currency.symbol);
@@ -94,7 +94,7 @@ const Transfer = () => {
         setchainList(chain.tokens)
       }
 
-      return
+      return false
 
     });
    
@@ -300,12 +300,10 @@ const Transfer = () => {
       settrxid(txId + trx.hash);
 
 
-      // setamount("");
-      // setwratsKey("");
+      setamount("");
+      setwratsKey("");
 
-      //storing public keys in logs
 
-      storing()
 
 
     } catch (e: any) {
@@ -318,55 +316,6 @@ const Transfer = () => {
 
 
 
-
-  // const signing = async () => {
-
-  //   // const provider = new ethers.providers.Web3Provider(ethereum);
-  //   const signer = provider.getSigner();
-
-
-  //   const relayer = new ethers.Wallet("", provider);
-  //   const message = "Hello, World!";
-  //   const messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(message));
-
-  //   // Sign the message
-  //   const signedTransaction = await signer.signMessage(ethers.utils.arrayify(messageHash));
-  //   const { v, r, s } = ethers.utils.splitSignature(signedTransaction);
-  //   const signature = ethers.utils.joinSignature({ r, s, v });
-  //   console.log(v, r, s);
-
-  //   const recoveredAddress = ethers.utils.verifyMessage(ethers.utils.arrayify(messageHash), signedTransaction);
-
-  //   console.log('Original Address:', await signer.getAddress());
-  //   console.log('Recovered Address:', recoveredAddress);
-
-
-  //   const tx = {
-  //     to: relayer.address,
-  //     data: signedTransaction,
-  //     value: ethers.utils.parseEther('0.0001'),
-  //   }
-
-
-  //   const txResponse = await relayer.sendTransaction(tx);
-
-
-  //   // const signature = ethers.utils.joinSignature({ r, s, v });
-
-  //   // Recover the public key
-
-  //   const publicKey = ethers.utils.recoverPublicKey(txResponse.hash, signedTransaction);
-
-
-  //   // Derive the Ethereum address from the public key
-  //   const address = ethers.utils.computeAddress(publicKey);
-
-  //   console.log('Recovered Address:', address);
-  //   console.log('hash', txResponse.hash);
-
-
-  //   settrxid(txId + txResponse.hash)
-  // }
 
 
 
@@ -415,9 +364,7 @@ const Transfer = () => {
         seterror(err.message);
       }
 
-      //storing in db
 
-      storing()
 
     } catch (e: any) {
       console.log(e);
@@ -429,7 +376,7 @@ const Transfer = () => {
   async function approve() {
 
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(token, ERC20ABI, signer);
+    const contract = new ethers.Contract(token, TokenABI, signer);
 
 
     try {
@@ -486,7 +433,7 @@ const Transfer = () => {
 
     // validateChain();
 
-    const contract = new ethers.Contract(token, ERC20ABI, provider);
+    const contract = new ethers.Contract(token, TokenABI, provider);
 
     try {
       const balance = await contract.balanceOf(msgSender);
@@ -602,7 +549,7 @@ const Transfer = () => {
       <div className="w-full flex justify-center mr-4">
         <button
           onClick={() => {
-            const selectedChain = chainOptions.find((chain: any) => chain.currency.symbol === byDefault);
+            const selectedChain = AvaxMetaData.find((chain: any) => chain.currency.symbol === byDefault);
             if (selectedChain) {
               Transfer(); // Call Transfer function if the condition is met
             } else {

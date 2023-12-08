@@ -25,7 +25,7 @@ interface chain {
     tokens: Token[]
 }
 
-export const chainOptions: chain[] = [
+export const AvaxMetaData: chain[] = [
   
     {
         name: "Avalanche Fuji", contract: '', chainId: "0xa869", symbol: avax, currency: { symbol: "AVAX", decimals: 18 }, rpcs: ['https://api.avax-test.network/ext/bc/C/rpc'], url: "https://testnet.avax.network", 
