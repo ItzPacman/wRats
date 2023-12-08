@@ -1,4 +1,4 @@
-import { Crc } from "../helpers/Crc";
+import { Crc16 } from "../Helpers/Checksum";
 import base58 from "bs58";
 import { useState, useEffect } from "react";
 import EllipticCurve from "elliptic";
@@ -6,9 +6,9 @@ import { ec as EC } from "elliptic";
 import { AiOutlineCopy } from "react-icons/ai";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
-import { downloadTxt } from "../helpers/downloadTxt";
+import  {DownloadKeys}  from  "../Helpers/DownloadKeys"
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import ToolTip from "../helpers/ToopTip";
+import ToolTip from "../Helpers/Tool";
 import { IoCreateSharp, IoDownloadOutline } from "react-icons/io5";
 import { MdOutlineDone } from "react-icons/md";
 // import { useHistory } from "react-router-dom" ; 
@@ -26,11 +26,13 @@ const Keys = (props: Props) => {
   const notyf = new Notyf();
   // const history = useHistory();
 
-  const [ForusKey, setForusKey] = useState<string | any>("");
-  // const [, setstoredsignatureKey] = useState<string | any>("");
+  const [wRatKeys, setwRatKeys] = useState<string | any >("");
+
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
 
-  //generating the cp address and secret key
+
+
+  //generating the link , keys and secret 
 
   const generateKeys = () => {
 
@@ -44,7 +46,7 @@ const Keys = (props: Props) => {
 
       const privateKey: string = key.getPrivate().toString('hex');
 
-      sessionStorage.setItem("signature", privateKey);
+      sessionStorage.setItem("secretKey", privateKey);
 
 
 
@@ -60,18 +62,18 @@ const Keys = (props: Props) => {
 
       //adding 1 byte checkpoint to the public key
 
-      const checkSum = Crc(uint8publicKey);
+      const checkSum = Crc16(uint8publicKey);
       const uint8PubKey: Uint8Array = new Uint8Array(uint8publicKey.length + 2);
 
       uint8PubKey.set(uint8publicKey);
       uint8PubKey.set(checkSum, uint8publicKey.length);
 
-      //adding a single byte prefix "fk" to the public key (i.e forus key)
 
-      const _foruskey: string = "Fk" + base58.encode(uint8PubKey);
-      sessionStorage.setItem("foruskey", _foruskey);
 
-      setForusKey(_foruskey);
+      const _wRatKeys: string = "wRats-" + base58.encode(uint8PubKey);
+      sessionStorage.setItem("wRatKeys", _wRatKeys);
+
+      setwRatKeys(_wRatKeys);
 
 
     } catch (e) {
@@ -88,9 +90,9 @@ const Keys = (props: Props) => {
   }, []);
 
 
-  const copyforusKey = () => {
+  const copywRatKeys = () => {
 
-    navigator.clipboard.writeText(`https://forus.live/forus?key=${ForusKey}`);
+    navigator.clipboard.writeText(`https://wrats.io/main?key=${wRatKeys}`);
     notyf.success("Copied");
     setAddressCopied(true);
   
@@ -100,13 +102,13 @@ const Keys = (props: Props) => {
 
 
   const downloadKeys = () => {
-    navigator.clipboard.writeText(ForusKey);
+    navigator.clipboard.writeText(wRatKeys);
 
 
-    let signature = sessionStorage.getItem('signature');
-    let forusKey  =  sessionStorage.getItem('foruskey');
-    const content = `#forus-signatureKey-${signature}\nforusKey-${forusKey}`;
-    downloadTxt(content, 'forus-keys.txt');
+    let secret = sessionStorage.getItem('secret');
+    let wRat_Key  =  sessionStorage.getItem('wRatKeys');
+    const content = `#secret-${secret}\nwRatKey-${wRat_Key}`;
+    DownloadKeys(content, 'wRats-keys.txt');
   };
 
 
@@ -145,14 +147,14 @@ const Keys = (props: Props) => {
              sm:mx-0 mx-3 bg-gray-600 rounded-md hover:shadow-sm shadow-gray-400 px-2">
               <p className="sm:text-[.9rem] text-[0.8rem] md:text-[1.1rem] montserrat-small
                font-extrabold text-white">
-                #Foruskey-{ForusKey}
+                #wRatKeys-{wRatKeys}
               </p>
             </div>
             <div className="flex items-center text-white md:space-x-3">
               <ToolTip tooltip="Copy Link">
                 {/* <AiOutlineCopy
                   className="cursor-pointer font-bold text-2xl text-gray-400 hover:text-highlight"
-                  onClick={copyforusKey}
+                  onClick={copywRatKeys}
                 /> */}
                    {addressCopied ? (
               <MdOutlineDone
@@ -162,7 +164,7 @@ const Keys = (props: Props) => {
               <AiOutlineCopy
                 className={`" cursor-pointer flex-bold inline-flex mt-2" : "hidden"
                         } text-white font-bold text-[1.2rem] "text-white `}
-                  onClick={copyforusKey}
+                  onClick={copywRatKeys}
                       
               />
             )}
@@ -173,7 +175,7 @@ const Keys = (props: Props) => {
           sm:text-[0.8rem] montserrat-small font-semibold">
             <AiOutlineInfoCircle size={20} color="#fff" className="ml-1" />
             <p className="ml-2">
-              Never reveal the signature. Only Share your forus key to receive
+              Never reveal the secret. Only Share your forus key to receive
               funds.
             </p>
           </div>
@@ -195,7 +197,7 @@ const Keys = (props: Props) => {
               bg-gray-700 hover:bg-black hover:border-highlight border border-gray-600 min-w-max"
           >
             <IoDownloadOutline className="font-bold text-[#06B3D2] text-xl" />
-            <ToolTip tooltip="Save Signature Key">Save Keys</ToolTip>
+            <ToolTip tooltip="Save secret Key">Save Keys</ToolTip>
           </div>
         </div>
       </div>

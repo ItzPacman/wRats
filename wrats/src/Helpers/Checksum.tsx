@@ -34,7 +34,7 @@ const CRC_16_TABLE = [
   ];
   
 
-export function Crc( data: Uint8Array ) {
+export function Crc16( data: Uint8Array ) {
 
 
     let crc = 0;

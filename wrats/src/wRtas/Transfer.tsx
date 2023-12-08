@@ -4,10 +4,8 @@ import EllipticCurve from "elliptic";
 import { ec as EC } from "elliptic";
 import { useContext } from "react";
 import { AppContext } from "./Container";
-import Abi from "../artifacts/contracts/Logs.sol/Logs.json";
+// import Abi from "../artifacts/contracts/Logs.sol/Logs.json";
 import { BsChevronDown } from "react-icons/bs";
-import { db } from "../config/firebase.js";
-import { collection, addDoc } from "firebase/firestore";
 import { ethers } from "ethers";
 import { Notyf } from "notyf";
 import BigNumber from "bignumber.js";
@@ -15,7 +13,7 @@ import { chainOptions } from "../helpers/ChainOptions";
 import "notyf/notyf.min.css";
 import { BiTransfer } from "react-icons/bi";
 import { ERC20ABI } from "../helpers/ERC20ABI";
-import { isDetected } from "../checkers/isDetected";
+import { IsConnected } from "../Helpers/IsConnected";
 import { useLocation } from 'react-router-dom';
 
 
@@ -34,14 +32,14 @@ const Transfer = () => {
     const key = searchParams.get('key');
 
     if (key) {
-      setforusKey(key);
+      setwratsKey(key);
       
     }
   }, [location.search ,]);
 
 
 
-  let currentNetwork: string | any = sessionStorage.getItem("chain");
+  let network: string | any = sessionStorage.getItem("chain");
 
 
 
@@ -59,7 +57,7 @@ const Transfer = () => {
   let sharedSecret: string | '';
 
   const [token, settoken] = useState<string | "">("");
-  const [forusKey, setforusKey] = useState<string | "">("");
+  const [wratsKey, setwratsKey] = useState<string | "">("");
   const [error, seterror] = useState<string | "">("");
   const [amount, setamount] = useState<string | "">("");
   const [show, setshow] = useState<boolean>(false);
@@ -89,7 +87,7 @@ const Transfer = () => {
 
     chainOptions.map((chain) => {
 
-      if (currentNetwork === chain.name) {
+      if (network === chain.name) {
         setbyDefault(chain.currency.symbol);
         settxID(chain.url)
         setContractAddress(chain.contract)
@@ -105,7 +103,7 @@ const Transfer = () => {
 
 
 
-  // console.log(chainList, currentNetwork, ContractAddress, sessionStorage.getItem("contractAdd"), txId);
+  // console.log(chainList, network, ContractAddress, sessionStorage.getItem("contractAdd"), txId);
 
   const [trxid, settrxid] = useState<string>("");
   const [waiting, setwaiting] = useState<boolean>(false);
@@ -119,14 +117,14 @@ const Transfer = () => {
   //helpers functuion to validate forus key
 
 
-  const validatingForuskey = (event: any) => {
+  const validatingwratsKey = (event: any) => {
 
 
       const key = event.target.value;
 
       if (key !== '') {
         if (
-          (key.slice(0, 2).toLowerCase() !== "fk" && (key.length > 49 || key.length < 49))) {
+          (key.slice(0, 6).toLowerCase() !== "wrats-" && (key.length > 53 || key.length < 53))) {
           seterror("Invalid address");
           setTimeout(() => {
             seterror("");
@@ -135,7 +133,7 @@ const Transfer = () => {
       }
   
   
-      setforusKey(key);
+      setwratsKey(key);
   
     
 
@@ -145,7 +143,7 @@ const Transfer = () => {
   const validateInputs = () => {
 
 
-    if (forusKey === "" || amount === "") {
+    if (wratsKey === "" || amount === "") {
       seterror("Please fill the inputs");
       setTimeout(() => {
         seterror("");
@@ -159,22 +157,20 @@ const Transfer = () => {
 
 
   //receipent public key (i.e forus key )
-  let rec_fkey: EC.KeyPair | any;
+  let shared_wratsKey: EC.KeyPair | any;
 
 
 
   //ec keypair use to generate private numbers and public stealth address
   let keypair: EC.KeyPair = ec.genKeyPair();
-
   //one time ephemeral public key to be published in logs directory contract
-
-  let ephemeralPkey: any = keypair.getPublic();
-
+  let ephPublicKey: any = keypair.getPublic();
 
 
 
 
-  const validateForusKey = async () => {
+
+  const validatewratsKey = async () => {
 
     /*
        removing the prefix "fk" of the forus key 
@@ -186,16 +182,16 @@ const Transfer = () => {
     
 
 
-      if (forusKey.slice(0, 2).toLowerCase() === "fk") {
-        const _forusKey = forusKey.slice(2);
+      if (wratsKey.slice(0, 6).toLowerCase() === "wrats-") {
+        const _wratsKey = wratsKey.slice(6);
 
         /*
          removing the one bytes suffix from the forus key then decoding it to generate an stealth address
     */
-        let decode_forusKey = base58.decode(_forusKey);
+        let decode_wratsKey = base58.decode(_wratsKey);
 
-        const decodedkey = decode_forusKey.subarray(0, 33);
-        rec_fkey = ec.keyFromPublic(decodedkey, "hex");
+        const decodedkey = decode_wratsKey.subarray(0, 33);
+        shared_wratsKey = ec.keyFromPublic(decodedkey, "hex");
 
       } else {
         seterror("Invalid key");
@@ -214,15 +210,15 @@ const Transfer = () => {
   const setUpStealthAddress = async () => {
 
 
-    validateForusKey()
+    validatewratsKey()
     /*
          Generating the stealth address by doing some elliptic curve calculation here
       */
 
     try {
-      const calculateSecret = keypair.derive(rec_fkey.getPublic());
+      const calculateSecret = keypair.derive(shared_wratsKey.getPublic());
       const hashedSecret = ec.keyFromPrivate(keccak256(calculateSecret.toArray()));
-      const publicKey = rec_fkey?.getPublic()?.add(hashedSecret.getPublic())?.encode("array", false);
+      const publicKey = shared_wratsKey?.getPublic()?.add(hashedSecret.getPublic())?.encode("array", false);
 
       //P = H(r*A) * G + B
 
@@ -238,12 +234,12 @@ const Transfer = () => {
 
 
       //x and y co-ordinate of ephemeral public key
-      x_cor = "0x" + ephemeralPkey?.getX().toString(16, 64) || "";
-      y_cor = "0x" + ephemeralPkey?.getY().toString(16, 64) || "";
+      x_cor = "0x" + ephPublicKey?.getX().toString(16, 64) || "";
+      y_cor = "0x" + ephPublicKey?.getY().toString(16, 64) || "";
 
-      // 2byets shared secret prefixed with ephemeral public key
+      // 1byte shared secret prefixed with ephemeral public key
 
-      sharedSecret = "0x" + calculateSecret.toArray()[0].toString(16) + calculateSecret.toArray()[1].toString(16);
+      sharedSecret = "0x" + calculateSecret.toArray()[0].toString(16) ;
 
     } catch (e) {
       console.log("error", e);
@@ -252,23 +248,10 @@ const Transfer = () => {
     return true;
   };
 
-  const logs = collection(db, "Logs");
 
-  /*
-     storing the ephemeral public key in firebase along with blockchain to easily and effeciantly retreive
- the keys  */
 
-  const storing = async () => {
-    const stored = `${sharedSecret.replace("0x", "")}04${x_cor.slice(2)}${y_cor.slice(2)}`;
-    try {
-      await addDoc(logs, {
-        Keys: stored,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    console.log("storing...", stored);
-  };
+
+
 
 
   const Transfer = async () => {
@@ -318,7 +301,7 @@ const Transfer = () => {
 
 
       // setamount("");
-      // setforusKey("");
+      // setwratsKey("");
 
       //storing public keys in logs
 
@@ -499,7 +482,7 @@ const Transfer = () => {
 
     //checking is ethereum connected
 
-    isDetected()
+    IsConnected()
 
     // validateChain();
 
@@ -548,9 +531,9 @@ const Transfer = () => {
           montserrat-subtitle outline-none px-3 py-3 h-[100%] rounded-md
            hover:border-cyan-900 w-[100%] bg-black/10 border-2 border-gray-600"
           type="text"
-          onChange={validatingForuskey}
+          onChange={validatingwratsKey}
           placeholder="Enter Your Forus Key"
-          value={forusKey}
+          value={wratsKey}
         />
       </div>
       {/* Amount */}

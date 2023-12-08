@@ -1,6 +1,6 @@
 import { Notyf } from "notyf";
 
-export const isDetected = async () => {
+export const IsConnected = async () => {
     const notyf = new Notyf();
 
     const { ethereum }: any = window;

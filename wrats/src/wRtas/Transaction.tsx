@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Transfer from "./Transfer";
-import {Receive} from "./Receive"
+import {Scan} from "./Scan"
 
 import { useContext } from "react";
 import { AppContext } from "./Container";
@@ -13,7 +13,7 @@ const Transactions = (props: Props) => {
   const { setShow ,show} = useContext(AppContext);
   const [buttonStatus, setButtonStatus] = useState({
     transfer: true,
-    Receive: false,
+    Scan: false,
     withdraw: false,
     
   });
@@ -23,26 +23,26 @@ const Transactions = (props: Props) => {
 
   const handleTransferClick = () => {
     setButtonStatus({
-      Receive: false,
+      Scan: false,
       withdraw: false,
       transfer: true,
     });
     setShow("transfer");
   };
 
-  const handleReceiveClick = () => {
+  const handleScanClick = () => {
     setButtonStatus({
-      Receive: true,
+      Scan: true,
       withdraw: false,
       transfer: false,
     });
-    setShow("receive");
+    setShow("Scan");
   };
 
   const handleWithdrawClick = () => {
     setButtonStatus({
       withdraw: true,
-      Receive: false,
+      Scan: false,
       transfer: false,
     });
     setShow("withdraw");
@@ -68,14 +68,14 @@ const Transactions = (props: Props) => {
           Transfer
         </button>
         <button
-          onClick={handleReceiveClick}
+          onClick={handleScanClick}
           className={`px-6 py-1 border-b-2 border-black
-          ${buttonStatus.Receive
+          ${buttonStatus.Scan
               ? "shadow-2xl border-b-2 border-cyan-800 text-transparent bg-clip-text bg-gradient-to-r from-highlight to-cyan-600 shadow-cyan-700"
               : "text-gray-400"
             }`}
         >
-          Receive
+          Scan
         </button>
         <button
           onClick={handleWithdrawClick}
@@ -92,8 +92,8 @@ const Transactions = (props: Props) => {
       <div className="py-1 xl:w-[400px] md:w-[80%] mx-auto w-[87%]">
         {buttonStatus.transfer ? (
           <Transfer />
-        ) : buttonStatus.Receive ? (
-          <Receive
+        ) : buttonStatus.Scan ? (
+          <Scan
             setamountTowithdraw={setamountTowithdraw}
             amountTowithdraw={amountTowithdraw}
             setmasterkey={setmasterkey}
