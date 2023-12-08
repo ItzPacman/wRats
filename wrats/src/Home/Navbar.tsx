@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Logos/logo.png";
+import Logo from "../Logos/Logo.png";
 import { Link } from "react-scroll";
 
 //npm i --save-dev @types/react-scroll
@@ -14,7 +14,7 @@ const Navbar = (props: Props) => {
     >
       {/* logo left */}
       <div className="-ml-6 flex items-center">
-        <img src={logo} alt="" className="w-[95px] h-[92px]" />
+        <img src={Logo} alt="" className="w-[95px] h-[92px]" />
         <h1 className="-ml-2 montserrat-subheading sm:text-[1.8rem] font-extrabold text-[1.6rem] text-[#131619]">
           Forus
         </h1>

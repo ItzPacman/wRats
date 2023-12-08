@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Keys from "./Keys";
 import Guide from "./Guide";
+import Footer from "./Footer";
 import Transactions from "./Transaction";
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import { Notyf } from "notyf";
@@ -106,9 +107,9 @@ const Container = (props: Props) => {
   useEffect(() => {
 
 
-    fetchCurrentChainData() 
+    fetchCurrentChainData()
 
-  }, [show, ]);
+  }, [show,]);
 
   const [userBalance, setUserBalance] = useState<string>("");
 
@@ -184,12 +185,11 @@ const Container = (props: Props) => {
 
   return (
     <AppContext.Provider value={ContextValue}>
-      <div className="overflow-hidden bg-gradient-to-tr from-black via-black/80 to-transparent relative w-full h-full">
+      <div className=" bg-[#1E202Dff] relative w-full h-full">
         <div
-          className="absolute top-0 right-0 w-full h-full rounded-md bg-gradient-to-tr
-         from-blue-400 to-blue-600 z-[-10]"
+          className="absolute top-0 right-0 w-full h-full rounded-md "
         ></div>
-        <div className="bg-black/80 max-h-max min-h-[100vh] lg:overflow-hidden">
+        <div className=" max-h-max min-h-[100vh] ">
 
 
           <Header />
@@ -200,7 +200,7 @@ const Container = (props: Props) => {
           >
             <div className="relative m-auto lg:w-[94%] xl:w-[96%] w-[100%] h-full">
               <div className="border border-gray-500 shadow-gray-800 absolute top-0 right-0 w-full h-full rounded-md 
-            bg-gradient-to-tr from-blue-400 to-black/20"></div>
+            bg-[#1E202Dff]"></div>
               <Keys />
             </div>
             <div
@@ -209,7 +209,10 @@ const Container = (props: Props) => {
             >
               <Guide />
               <Transactions />
+
+
             </div>
+            <Footer />
           </div>
         </div>
 

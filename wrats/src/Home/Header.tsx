@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import screenshot from "../assets/ForusKey.png";
+// import screenshot from "../assets/ForusKey.png";
 // import Info from "./Info";
 
 const Header = () => {
@@ -50,7 +50,7 @@ const Header = () => {
             className="border-1 montserrat-subtitle  
             hover:scale-95 transition-all ease-linear p-1 px-10 rounded-full border-[#48494b] 
              montserrat-subtitle font-bold  text-xl bg-[#292a2c] text-gray-300"
-            onClick={() => navigate("/forus")}
+            onClick={() => navigate("/wRats")}
           >
             Launch App
           </button>
@@ -61,7 +61,7 @@ const Header = () => {
           <img
             className="md:mt-0 mt-10 rounded-[1.5rem] object-center 
             shadow-xl shadow-[#757575]"
-            src={screenshot}
+            // src={screenshot}
             height={1200}
             width={1000}
             alt=""

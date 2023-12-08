@@ -61,7 +61,7 @@ const Transactions = (props: Props) => {
           onClick={handleTransferClick}
           className={`text-left sm:px-6 py-1 border-b-2 border-black
         ${buttonStatus.transfer
-              ? "shadow-2xl border-b-2 border-cyan-800 text-transparent bg-clip-text bg-gradient-to-r from-highlight to-cyan-600 shadow-cyan-700"
+              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-[#ee6f08]"
               : "text-gray-400"
             }`}
         >
@@ -71,7 +71,7 @@ const Transactions = (props: Props) => {
           onClick={handleScanClick}
           className={`px-6 py-1 border-b-2 border-black
           ${buttonStatus.Scan
-              ? "shadow-2xl border-b-2 border-cyan-800 text-transparent bg-clip-text bg-gradient-to-r from-highlight to-cyan-600 shadow-cyan-700"
+              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-#[#ee6f08]"
               : "text-gray-400"
             }`}
         >
@@ -81,7 +81,7 @@ const Transactions = (props: Props) => {
           onClick={handleWithdrawClick}
           className={`sm:px-6 py-1 border-b-2 border-black
           ${buttonStatus.withdraw
-              ? "shadow-2xl border-b-2 border-cyan-800 text-transparent bg-clip-text bg-gradient-to-r from-highlight to-cyan-600 shadow-cyan-700"
+              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-#[#ee6f08]"
               : "text-gray-400"
             }`}
         >

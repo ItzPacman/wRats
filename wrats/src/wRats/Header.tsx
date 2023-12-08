@@ -1,12 +1,10 @@
-import logo from "../Logos/logo.jpg";
+import  Logo from "../Logos/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "./Container";
-import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
 // import { HiQuestionMarkCircle } from "react-icons/hi";
 import { useState } from "react";
-import { AiFillFilePdf } from "react-icons/ai";
 import { MdArrowDropDown } from "react-icons/md";
 import { MdArrowDropUp, MdOutlineDone } from "react-icons/md";
 import { AiOutlineCopy } from "react-icons/ai";
@@ -50,73 +48,42 @@ const Header = (props: Props) => {
   return (
     <div className="relative mx-auto max-w-[1300px] pb-12 pt-4 sm:pt-8   ">
       <div className="sm:px-7 px-4 flex justify-between">
-        {/* leftside logo */}
+        {/* leftside Logo */}
         <div
           className="flex items-center cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <div className="flex items-center logo-div">
-            <img src={logo} alt="" className="logo w-[56px] h-[51px]" />
-            <h1 className="-ml-1 montserrat-subtitle sm:text-[1.5rem] font-bold text-[1.4rem] text-white">
-              Forus
-            </h1>
+          <div className="flex items-center Logo-div">
+            <img src={Logo} alt="" className="Logo w-[102px] h-[95px]" />
+            {/* <h1 className="-ml-1 montserrat-subtitle sm:text-[1.5rem] font-bold text-[1.4rem] text-white">
+
+            </h1> */}
           </div>
           {/* Navigation Buttons */}
           <div className="flex items-center sm:space-x-8">
             <button
               onClick={() => navigate("/")}
               className="flex md:flex-row flex-col items-center transition-all ease-linear
-               md:items-end space-x-1 sm:ml-14 ml-9  text-white 
+               md:items-end space-x-1 sm:ml-4 ml-2  text-white 
                 montserrat-subtitle underline-offset-8 font-bold hover:underline decoration-bgGray  sm:text-[1.1rem] text-[0.8rem]"
             >
               <IoMdHome size={23} className="md:self-start  text-gray-300 " />
               <p className="sm:inline-flex hidden text-gray-300  n">Home</p>
             </button>
 
-            <div
-              onClick={() => navigate("/")}
-              className="flex md:flex-row flex-col items-center md:items-end space-x-1 sm:ml-14 
-               text-white   ml-2
-                montserrat-subtitle underline-offset-8
-                 font-bold hover:underline decoration-bgGray 
-                 sm:text-[1.1rem] text-[0.8rem]"
-            >
-              <AiFillFilePdf
-                size={23}
-                className="md:self-start text-gray-300   "
-              />
-              <p className="sm:inline-flex hidden text-gray-300 ">Read</p>
             </div>
-          </div>
         </div>
 
         {/* rigt side */}
         <div className="sm:flex-row flex space-x-3 items-center">
-          {/* Social Links */}
+    
           <div className="lg:flex space-x-3 items-center">
-            <div className="lg:flex space-x-3 items-center hidden">
-              <p className=" text-gray-300 ">
-                <a href="https://discord.gg/keQnv2K8HP">
-                  <FaDiscord size={22} />
-                </a>
-              </p>
-              <p className="  text-gray-300  ">
-                <a href="https://github.com/TheForus">
-                  <FaGithub size={22} />
-                </a>
-              </p>
-              <p className="  text-gray-300  ">
-                <a href="https://twitter.com/The_Forus">
-                  <FaTwitter size={22} />
-                </a>
-              </p>
-            </div>
-
+           
             {sessionStorage.getItem("address") !== null && (
               <div
                 className="sm:static absolute left-3 bottom-2 montserrat-subtitle border-1 
               sm:text-[1rem] text-[0.9rem] px-2 sm:px-4
-             rounded-full text-[#e9edf1] font-extrabold border border-gray-500 hover:border-highlight"
+             rounded-full text-[#e9edf1] font-extrabold border border-gray-400 hover:border-[#ee6f08]"
               >
                 <ul
                   className=""
@@ -137,13 +104,13 @@ const Header = (props: Props) => {
                   <div
                     className={`
                     "transition-all ease-in py-2 border-none  shadow-md flex flex-col
-                    rounded-b-md absolute -ml-1 mt-0 text-black bg-[#c6fffb] z-20
+                    rounded-b-md absolute -ml-1 mt-0 text-black bg-gray-300 z-20
                     ${show ? "opacity-100" : "opacity-0"}`
                     }
                     onMouseLeave={() => setshow(false)}
                   >
                     {show &&
-                      connect.chainOptions.map((chain: any) => (
+                      connect.AvaxMetaData.map((chain: any) => (
                         <div className=" hover:bg-slate-500">
                           <li
                             className="flex flex-row-reverse p-1 px-4 cursor-pointer
@@ -181,37 +148,28 @@ const Header = (props: Props) => {
             >
               <p
                 // onClick={copyAddress}
-                className={`sm:text-[1rem] md:text-[0.9rem] montserrat-small text-cyan-500  font-semibold text-[0.8rem]`}
+                className={`sm:text-[1rem] md:text-[0.9rem] montserrat-small text-[#ee6f08]  font-semibold text-[0.8rem]`}
               >
                 {sessionStorage.getItem("address") !== null || false
                   ? connect.userBalance
                   : ""}
               </p>
-              <p
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={copyAddress}
-                className={`sm:text-[1.3rem] md:text-[1rem] cursor-pointer montserrat-small text-white font-semibold text-[1rem]`}
+              <p className={`sm:text-[1.3rem] md:text-[1rem] cursor-pointer montserrat-small text-white font-semibold text-[1rem]`}
               >
                 {sessionStorage.getItem("address") !== null || false
                   ? `${sessionStorage
                     .getItem("address")
-                    ?.slice(0, 9)}...${sessionStorage
+                    ?.slice(0, 6)}...${sessionStorage
                       .getItem("address")
-                      ?.slice(-5)}`
+                      ?.slice(-3)}`
                   : ""}
               </p>
             </div>
-            {addressCopied ? (
-              <MdOutlineDone
-                className={` text-white font-bold text-[1.1rem] "text-white `}
+      
+              <AiOutlineCopy  onClick={copyAddress}
+                className="inline-flex cursor-pointer  font-bold text-[1.2rem] text-[#8a8a91]"
               />
-            ) : (
-              <AiOutlineCopy
-                className={`${isAddrHovered ? "inline-flex mt-2" : "hidden"
-                  } text-white font-bold text-[1.2rem] "text-white `}
-              />
-            )}
+      
           </div>
           {sessionStorage.getItem("address") === null || false ? (
             <button

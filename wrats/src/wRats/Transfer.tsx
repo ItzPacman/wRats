@@ -505,7 +505,7 @@ const Transfer = () => {
             <ul className="" onClick={() => setshow(!show)}>
               <li
                 className="flex p-2 px-3 cursor-pointer rounded-md  font-semibold border-l border-gray-700
-            items-center gap-2 text-cyan-500"
+            items-center gap-2 text-[#ee6f08]"
               >
                 <p>{byDefault}</p>
                 <BsChevronDown size={18} />

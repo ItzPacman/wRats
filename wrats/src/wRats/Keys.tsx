@@ -46,7 +46,7 @@ const Keys = (props: Props) => {
 
       const privateKey: string = key.getPrivate().toString('hex');
 
-      sessionStorage.setItem("secretKey", privateKey);
+      sessionStorage.setItem("secret", privateKey);
 
 
 
@@ -107,37 +107,33 @@ const Keys = (props: Props) => {
 
     let secret = sessionStorage.getItem('secret');
     let wRat_Key  =  sessionStorage.getItem('wRatKeys');
-    const content = `#secret-${secret}\nwRatKey-${wRat_Key}`;
+    const content = `${wRat_Key}\nsecret-${secret}`;
     DownloadKeys(content, 'wRats-keys.txt');
   };
 
 
 
   return (
-    <main className="shadow-2xl shadow-[#1f2a3af3]">
+    <main className="shadow-2xl shadow-[#1E202Dff]">
       <div
         // style={{ backgroundImage: `url(${})` }}
         className="relative w-full xl:justify-between h-full rounded-md bg-no-repeat 
         flex flex-col lg:flex-row items-start gap-3 lg:gap-6 justify-start py-4 px-3 md:px-6 rounded-t-md z-10
-        bg-gradient-to-tr from-black via-black/80 border-gray-700 border"
+        bg-[#1E202Dff] border-gray-700 border"
       >
         <div className="z-10  pb-6 flex flex-col space-y-1 xl:items-start items-start xl:w-max w-full">
           <h1
             className="montserrat-heading text-transparent  hightlightText  ml-2 font-[1000] sm:text-[1.4rem] xl:text-[1.6rem]
-           bg-clip-text  text-xl  bg-gradient-to-r from-highlight to-cyan-600"
+           bg-clip-text  text-xl  bg-[#ee6f08]"
           >
-            {/* Share the */}
-            {/* <span
-              className="hightlightText mx-2 text-transparent sm:text-[1.5rem] xl:text-[1.7rem]
-             bg-clip-text bg-gradient-to-r from-highlight to-cyan-600"
-            > */}
-            Forus Key
-            {/* </span> */}
+
+            wRats Keys
+
             <span
-              className=" mx-2  sm:text-[1.4rem] xl:text-[1.6rem]
+              className=" mx-2  sm:text-[1.2rem] xl:text-[1.4rem]
              text-gray-400"
             >
-              (Share It to Receive Funds)
+              (Copy & Share Link)
             </span>
             {/* & get paid privately ! */}
           </h1>
@@ -147,15 +143,12 @@ const Keys = (props: Props) => {
              sm:mx-0 mx-3 bg-gray-600 rounded-md hover:shadow-sm shadow-gray-400 px-2">
               <p className="sm:text-[.9rem] text-[0.8rem] md:text-[1.1rem] montserrat-small
                font-extrabold text-white">
-                #wRatKeys-{wRatKeys}
+                {wRatKeys}
               </p>
             </div>
             <div className="flex items-center text-white md:space-x-3">
               <ToolTip tooltip="Copy Link">
-                {/* <AiOutlineCopy
-                  className="cursor-pointer font-bold text-2xl text-gray-400 hover:text-highlight"
-                  onClick={copywRatKeys}
-                /> */}
+              
                    {addressCopied ? (
               <MdOutlineDone
                 className={` text-white font-bold text-[1.1rem] "text-white `}
@@ -174,9 +167,8 @@ const Keys = (props: Props) => {
           <div className="text-gray-400  flex justify-around items-center text-[0.7rem] 
           sm:text-[0.8rem] montserrat-small font-semibold">
             <AiOutlineInfoCircle size={20} color="#fff" className="ml-1" />
-            <p className="ml-2">
-              Never reveal the secret. Only Share your forus key to receive
-              funds.
+            <p className="ml-2 montserrat-small text-[0.9rem] ">
+            Always share Link. Keep your <span className=" font-bold">secret</span> secure .
             </p>
           </div>
         </div>
@@ -184,20 +176,20 @@ const Keys = (props: Props) => {
           <div
             className="flex cursor-pointer space-x-2 my-1 montserrat-subtitle p-1
             montserrat-subtitle px-6 text-center text-gray-300 rounded-md font-semibold
-             bg-gray-700 border hover:bg-black hover:border-highlight border-[#152F59] min-w-max"
+             bg-gray-700 border hover:bg-black hover:border-[#ee6f08] border-[#152F59] min-w-max"
             onClick={generateKeys}
           >
-            <IoCreateSharp className="text-[#06B3D2] font-bold text-xl" />
-            <ToolTip tooltip="Generate Fresh Forus Key">Generate</ToolTip>
+            <IoCreateSharp className="text-[#ee6f08] font-bold text-xl" />
+            <ToolTip tooltip="Generate Fresh Forus Key">Generate New</ToolTip>
           </div>
           <div
             onClick={downloadKeys}
             className="flex cursor-pointer space-x-2 my-1 montserrat-subtitle p-1
              montserrat-subtitle px-6 text-center text-gray-300 rounded-md font-semibold
-              bg-gray-700 hover:bg-black hover:border-highlight border border-gray-600 min-w-max"
+              bg-gray-700 hover:bg-black hover:border-[#ee6f08] border border-gray-600 min-w-max"
           >
-            <IoDownloadOutline className="font-bold text-[#06B3D2] text-xl" />
-            <ToolTip tooltip="Save secret Key">Save Keys</ToolTip>
+            <IoDownloadOutline className="font-bold text-[#ee6f08] text-xl" />
+            <ToolTip tooltip="Save secret Key">Store Keys</ToolTip>
           </div>
         </div>
       </div>
