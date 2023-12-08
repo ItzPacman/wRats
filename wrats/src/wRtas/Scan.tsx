@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { keccak256 } from "ethers/lib.esm/utils";
-import Abi from "../artifacts/contracts/Logs.sol/Logs.json";
+import Abi from "../artifacts/contracts/wRats.sol/wRats.json";
 import EllipticCurve from "elliptic";
 import { ec as EC } from "elliptic";
 import {
@@ -10,18 +10,18 @@ import {
   AiOutlineShrink,
 } from "react-icons/ai";
 import "notyf/notyf.min.css";
-import { downloadTxt } from "../helpers/downloadTxt";
+import { DownloadKeys } from "../Helpers/DownloadKeys";
 import { ethers, BigNumber } from "ethers";
 import { MdHistory, MdOutlineDone } from "react-icons/md";
-import ToolTip from "../helpers/ToopTip";
-import { isDetected } from "../checkers/isDetected";
-import { chainOptions } from "../helpers/ChainOptions";
+import ToolTip from "../Helpers/Tool";
+import { AvaxMetaData } from "../Helpers/AvaxMetaData"
+import { IsConnected } from "../Helpers/IsConnected";
 
 
 const ec = new EllipticCurve.ec("secp256k1");
 
 
-//Combining the publickey with signatureKey then calcuate the private key of stealth address
+//Doing calculations with ephemeral publickey and secret then calcuate the private key of stealth address
 
 interface ChildProps {
 
@@ -42,12 +42,12 @@ export const Scan: React.FC<ChildProps> = ({
 }) => {
 
 
-  var signaturekey: EC.KeyPair | any;
+  var secretkey: EC.KeyPair | any;
   const { ethereum }: any = window;
 
 
 
-  const [savedSignaturekey, setsavedSignaturekey] = useState<string>("");
+  const [savedsecretkey, setsavedsecretkey] = useState<string>("");
   const [hide, sethide] = useState<boolean>(true);
   const [err, seterr] = useState<any>(false);
   const [pkCopied, setPkCopied] = useState<boolean>(false);
@@ -66,10 +66,10 @@ export const Scan: React.FC<ChildProps> = ({
 
   const contractaddress: string | any = useMemo(() => {
 
-    const selectedChain = chainOptions.find((item) => currentNetwork === item.name);
+    const selectedChain = AvaxMetaData.find((item: any) => currentNetwork === item.name);
     return selectedChain ? selectedChain.contract : null;
 
-  }, [chainOptions, currentNetwork ,ethereum]);
+  }, [currentNetwork]);
 
 
 
@@ -78,7 +78,7 @@ export const Scan: React.FC<ChildProps> = ({
 
     return new ethers.providers.Web3Provider(ethereum);
 
-  }, [])
+  }, [ethereum])
 
 
 
@@ -86,7 +86,7 @@ export const Scan: React.FC<ChildProps> = ({
 
     return new ethers.Contract(contractaddress, Abi.abi, provider);
 
-  }, [ethereum ,])
+  }, [provider,contractaddress])
 
 
 
@@ -112,11 +112,11 @@ export const Scan: React.FC<ChildProps> = ({
     }
     const arr = trxList.find((e: any) => {
 
-      e.address === obj.address
+      // e.address === obj.address
 
     })
 
-    if (!arr && Number(balance) > 0) settrxList((objs: any) => [...objs, obj] )
+    if (!arr && Number(balance) > 0) settrxList((objs: any) => [...objs, obj])
 
 
 
@@ -126,18 +126,18 @@ export const Scan: React.FC<ChildProps> = ({
 
 
 
-  //verify signature
+  //verify secret
 
-  const verifySignature = ((sign: any) => {
+  const verifysecret = ((sign: any) => {
 
-    if (sign.startsWith('#forus-signatureKey-')) {
+    if (sign.startsWith('#secret-')) {
 
-      setsavedSignaturekey(sign.replace('#forus-signatureKey-', '').slice(0, 64));
+      setsavedsecretkey(sign.replace('#secret-', '').slice(0, 64));
 
     }
 
     else {
-      seterr('Invalid Signature File')
+      seterr('Invalid secret File')
     }
 
   })
@@ -150,7 +150,7 @@ export const Scan: React.FC<ChildProps> = ({
 
   const fetch = async () => {
 
-    isDetected()
+    IsConnected()
 
     try {
 
@@ -176,10 +176,10 @@ export const Scan: React.FC<ChildProps> = ({
 
   const generateprivatekey = (): void => {
 
-    if (savedSignaturekey === "") {
-      signaturekey = ec.keyFromPrivate(signatureKey, "hex");
+    if (savedsecretkey === "") {
+      secretkey = ec.keyFromPrivate(secretKey, "hex");
     } else {
-      signaturekey = ec.keyFromPrivate(savedSignaturekey, "hex");
+      secretkey = ec.keyFromPrivate(savedsecretkey, "hex");
     }
 
 
@@ -187,7 +187,7 @@ export const Scan: React.FC<ChildProps> = ({
 
 
   useEffect(() => {
-    
+
     if (initValue > 0) {
       const timer = setTimeout(() => {
         if (initValue >= 10) {
@@ -211,7 +211,7 @@ export const Scan: React.FC<ChildProps> = ({
 
 
 
-  let signatureKey: string | any = sessionStorage.getItem("signature");
+  let secretKey: string | any = sessionStorage.getItem("secret");
 
 
   const getKeys = async () => {
@@ -240,14 +240,14 @@ export const Scan: React.FC<ChildProps> = ({
 
         else {
 
-          publicKey = keys.slice(4)
+          publicKey = keys.slice(2)
           //
-          
+
           keyPair = ec.keyFromPublic(publicKey, "hex");
-          calculateSecret = signaturekey.derive(keyPair.getPublic()); //
+          calculateSecret = secretkey.derive(keyPair.getPublic()); //
           hashedSecret = ec.keyFromPrivate(keccak256(calculateSecret.toArray()));
 
-          calculated_ss = calculateSecret.toArray()[0].toString(16) + calculateSecret.toArray()[1].toString(16);
+          calculated_ss = calculateSecret.toArray()[0].toString(16) ;
 
 
         }
@@ -258,16 +258,16 @@ export const Scan: React.FC<ChildProps> = ({
       }
 
       try {
-        if (calculated_ss.toString() === keys.slice(0, 4).toString()) {
+        if (calculated_ss.toString() === keys.slice(0, 2).toString()) {
 
           // calculating private key
 
-          const _key = signaturekey.getPrivate().add(hashedSecret.getPrivate());
+          const _key = secretkey.getPrivate().add(hashedSecret.getPrivate());
           const privateKey = _key.mod(ec.curve.n);
 
           setwallet(privateKey.toString(16, 32));
 
-          setsavedSignaturekey('')
+          setsavedsecretkey('')
         }
 
         return;
@@ -288,7 +288,7 @@ export const Scan: React.FC<ChildProps> = ({
   }, [initValue]); // Trigger when initValue changes
 
 
-  const copykey = (pkey: string , index: number) => {
+  const copykey = (pkey: string, index: number) => {
 
     navigator.clipboard.writeText(pkey);
 
@@ -300,7 +300,7 @@ export const Scan: React.FC<ChildProps> = ({
       console.error(e);
     }
 
-    downloadTxt("#walletprivateKey-" + pkey, "Forus-privatekey.txt");
+    DownloadKeys("#walletprivateKey-" + pkey, "wallet-privatekey.txt");
 
     setmasterkey(pkey);
 
@@ -349,7 +349,7 @@ export const Scan: React.FC<ChildProps> = ({
                 {!pkCopied ? (
                   <ToolTip tooltip="Copy Private key">
                     <AiOutlineCopy
-                      onClick={() => copykey(z.key , i)}
+                      onClick={() => copykey(z.key, i)}
                       className={`text-gray-400 hover:text-green-400 font-bold cursor-pointer text-[1.2rem]`}
                     />
                   </ToolTip>
@@ -377,17 +377,17 @@ export const Scan: React.FC<ChildProps> = ({
                 className="text-[0.9rem] font-semibold text-gray-300  placeholder:text-gray-500
             montserrat-subtitle outline-none px-3 py-3 h-[100%] rounded-md
             hover:border-cyan-900 w-[100%] bg-black/10 border-2 border-gray-600"
-                value={savedSignaturekey}
+                value={savedsecretkey}
                 onChange={(e) => {
-                  setsavedSignaturekey(e.target.value);
-                  verifySignature(e.target.value);
+                  setsavedsecretkey(e.target.value);
+                  verifysecret(e.target.value);
                 }}
-                placeholder="Paste your signature file..."
+                placeholder="Paste your secret file..."
               />
             )}
             {hide && (
               <p className="text-gray-400 p-1 py-2 font-semibold montserrat-small ">
-                Expand to enter the signature Key
+                Expand to enter the secret Key
               </p>
             )}
 

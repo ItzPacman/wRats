@@ -1,5 +1,5 @@
 
-import { chainOptions } from "./avax-metadata";
+import { AvaxMetaData } from "./AvaxMetaData";
 
 export const ValidateChainData = async () => {
 
@@ -7,7 +7,7 @@ export const ValidateChainData = async () => {
   const { ethereum }: any = window;
   try {
     const chainId = await ethereum.request({ method: "eth_chainId" });
-    const matchingChain = chainOptions.find(
+    const matchingChain = AvaxMetaData.find(
       (chain) => chain.chainId === chainId
     );
 

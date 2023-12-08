@@ -77,7 +77,7 @@ const Transfer = () => {
 
     return new ethers.providers.Web3Provider(ethereum);
 
-  }, [])
+  }, [ethereum])
 
 
   var receipentAddress: string;
@@ -99,11 +99,11 @@ const Transfer = () => {
     });
    
 
-  }, []);
+  }, [network,]);
 
 
 
-  // console.log(chainList, network, ContractAddress, sessionStorage.getItem("contractAdd"), txId);
+  console.log(chainList, network, ContractAddress, sessionStorage.getItem("contractAdd"), txId);
 
   const [trxid, settrxid] = useState<string>("");
   const [waiting, setwaiting] = useState<boolean>(false);
@@ -114,10 +114,10 @@ const Transfer = () => {
 
 
 
-  //helpers functuion to validate forus key
+  //helpers functuion to validate  keys
 
 
-  const validatingwratsKey = (event: any) => {
+  const validatingWratsKey = (event: any) => {
 
 
       const key = event.target.value;
@@ -156,7 +156,7 @@ const Transfer = () => {
 
 
 
-  //receipent public key (i.e forus key )
+  //receipent public key or Link
   let shared_wratsKey: EC.KeyPair | any;
 
 
@@ -173,7 +173,7 @@ const Transfer = () => {
   const validatewratsKey = async () => {
 
     /*
-       removing the prefix "fk" of the forus key 
+       removing the prefix "wrats-" 
   */
 
 
@@ -279,23 +279,24 @@ const Transfer = () => {
 
 
     try {
-      const valueToSend = ethers.utils.parseEther(amount);
-      const transactionParameters = {
-        value: valueToSend,
-      };
+      // const valueToSend = ethers.utils.parseEther(amount);
+      // const transactionParameters = {
+      //   value: valueToSend,
+      // };
 
 
-      const transfer = await contract.Transfer(
+      const transfer = await contract.TransferAvax(
         x_cor,
         y_cor,
         sharedSecret,
         receipentAddress,
-        transactionParameters
+        {value : ethers.utils.parseEther(amount)}
       );
  
 
       const trx = await transfer;
-      // await trx.wait
+
+      await trx.wait
 
       settrxid(txId + trx.hash);
 
@@ -478,7 +479,7 @@ const Transfer = () => {
           montserrat-subtitle outline-none px-3 py-3 h-[100%] rounded-md
            hover:border-cyan-900 w-[100%] bg-black/10 border-2 border-gray-600"
           type="text"
-          onChange={validatingwratsKey}
+          onChange={validatingWratsKey}
           placeholder="Enter Your Forus Key"
           value={wratsKey}
         />
@@ -581,10 +582,7 @@ const Transfer = () => {
       <p className="montserrat-subtitle text-gray-600 font-semibold flex mx-auto items-center">
         {error}
       </p>
-      {/* <button className="flex space-x-2 justify-center w-[100%] mx-auto mb-4 my-2 montserrat-subtitle  py-2 montserrat-subtitle  
-          hover:shadow-xl px-6 text-center text-black highlight 
-          rounded-md font-bold  transition-all ease-linear" onClick={signing}>
-        sign  </button> */}
+    
 
     </div>
   )

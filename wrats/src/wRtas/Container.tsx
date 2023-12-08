@@ -1,18 +1,17 @@
 import Header from "./Header";
-import Keys from "./wRatsKeys";
+import Keys from "./Keys";
 import Guide from "./Guide";
-import Transactions from "./Transactions";
+import Transactions from "./Transaction";
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
-// import abi from "../artifacts/contracts/Logs.sol/Logs.json";
+import abi from "../artifacts/contracts/wRats.sol/wRats.json";
 import { ethers } from "ethers";
-import { chainOptions } from "../helpers/ChainOptions";
-import HeaderRibbon from "../components/HeaderRibbon";
-import { ValidateChainData } from "../checkers/ValidateChainData";
-import { SwitchChain } from "../helpers/SwitchChain"
-import { isDetected } from "../checkers/isDetected";
-import CopyRight from "./CopyRight"
+import { AvaxMetaData } from "../Helpers/AvaxMetaData"
+import { ValidateChainData } from "../Helpers/ValidateChainData";
+import { SwitchChain } from "../Helpers/SwitchChain"
+import { IsConnected } from "../Helpers/IsConnected";
+
 
 type Props = {};
 
@@ -22,27 +21,29 @@ interface ContextValue {
   connectWallet(): void;
   userBalance: string;
   accountChecker(): void
-  selectedChain: string;
+  currentChain: string;
   totalfunds: string | any;
   settotalfunds: React.Dispatch<React.SetStateAction<string | any>>;
   totalAddress: string | any;
   settotalAddress: React.Dispatch<React.SetStateAction<string | any>>;
-  chainOptions: [] | any;
+  AvaxMetaData: [] | any;
   handleChainChange(chainId: any): void | any;
 }
 
 
 export const AppContext = createContext<ContextValue | any>(null);
 
-const Forus = (props: Props) => {
+const Container = (props: Props) => {
+
   //start
+
   const notyf = new Notyf();
 
   const [show, setShow] = useState<string>("transfer");
   const [totalfunds, settotalfunds] = useState<string | any>("0");
   const [totalAddress, settotalAddress] = useState<string | any>("0");
 
-  const selectedChain: string | any = sessionStorage.getItem("chain");
+  const currentChain: string | any = sessionStorage.getItem("chain");
 
 
 
@@ -53,21 +54,13 @@ const Forus = (props: Props) => {
 
       return ethereum;
 
-    } else {
-      // Handle the case where Ethereum is not available
-      return null; // or some other default value
     }
   }, []);
 
 
-
-
-
-
-
-
   const handleChainChange = async (chainId: any) => {
-    chainOptions.map((chain) => {
+
+    AvaxMetaData.map((chain: any) => {
       if (sessionStorage.getItem("chain") !== chain.name) {
         return;
       } else {
@@ -89,33 +82,33 @@ const Forus = (props: Props) => {
     });
   };
 
+  const fetchCurrentChainData = async () => {
+    try {
+      const chainId = await ethereum.request({ method: "eth_chainId" });
+      const chain = AvaxMetaData.find((option: any) => option.chainId === chainId);
 
+      if (chain) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const theContract = new ethers.Contract(chain.contract, abi.abi, provider);
+        const [totalAddresses, totalFunds] = await Promise.all([
+          theContract.gettotalStealthAddresses(),
+          theContract.getTotalVolume(),
+        ]);
+
+        settotalAddress(totalAddresses.toString());
+        settotalfunds(totalFunds / 10 ** 18);
+      }
+    } catch (error) {
+      console.error("Error fetching chain data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchCurrentChainData = async () => {
-      try {
-        const chainId = await ethereum.request({ method: "eth_chainId" });
-        const chain = chainOptions.find((option) => option.chainId === chainId);
 
-        if (chain) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const theContract = new ethers.Contract(chain.contract, abi.abi, provider);
-          const [totalAddresses, totalFunds] = await Promise.all([
-            theContract.gettotalStealthAddresses(),
-            theContract.getTotalVolume(),
-          ]);
 
-          settotalAddress(totalAddresses.toString());
-          settotalfunds(totalFunds / 10 ** 18);
-        }
-      } catch (error) {
-        console.error("Error fetching chain data:", error);
-      }
-    };
+    fetchCurrentChainData() 
 
-    (ethereum) ? fetchCurrentChainData() : null;
-
-  }, [show, ethereum]);
+  }, [show, ]);
 
   const [userBalance, setUserBalance] = useState<string>("");
 
@@ -139,7 +132,7 @@ const Forus = (props: Props) => {
   useEffect(() => {
     ValidateChainData();
     accountChecker();
-  }, []);
+  }, [ValidateChainData,]);
 
   useEffect(() => {
     if (ethereum) {
@@ -162,7 +155,7 @@ const Forus = (props: Props) => {
 
   const connectWallet = async (): Promise<void> => {
 
-    isDetected()
+    IsConnected()
 
     try {
       await accountChecker();
@@ -176,7 +169,7 @@ const Forus = (props: Props) => {
   const ContextValue: ContextValue = {
     show,
     setShow,
-    chainOptions,
+    AvaxMetaData,
     connectWallet,
     totalfunds,
     userBalance,
@@ -184,7 +177,7 @@ const Forus = (props: Props) => {
     totalAddress,
     settotalAddress,
     handleChainChange,
-    selectedChain,
+    currentChain,
     accountChecker
   };
 
@@ -197,7 +190,7 @@ const Forus = (props: Props) => {
          from-blue-400 to-blue-600 z-[-10]"
         ></div>
         <div className="bg-black/80 max-h-max min-h-[100vh] lg:overflow-hidden">
-          <HeaderRibbon />
+
 
           <Header />
 
@@ -208,7 +201,7 @@ const Forus = (props: Props) => {
             <div className="relative m-auto lg:w-[94%] xl:w-[96%] w-[100%] h-full">
               <div className="border border-gray-500 shadow-gray-800 absolute top-0 right-0 w-full h-full rounded-md 
             bg-gradient-to-tr from-blue-400 to-black/20"></div>
-              <wRatsKeys />
+              <Keys />
             </div>
             <div
               className="flex lg:flex-row lg:justify-between justify-between 
@@ -218,7 +211,6 @@ const Forus = (props: Props) => {
               <Transactions />
             </div>
           </div>
-          <CopyRight />
         </div>
 
       </div>
@@ -226,4 +218,4 @@ const Forus = (props: Props) => {
   );
 };
 
-export default Forus;
+export default Container;

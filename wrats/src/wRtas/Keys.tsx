@@ -11,7 +11,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import ToolTip from "../Helpers/Tool";
 import { IoCreateSharp, IoDownloadOutline } from "react-icons/io5";
 import { MdOutlineDone } from "react-icons/md";
-// import { useHistory } from "react-router-dom" ; 
+
 
 
 
@@ -24,7 +24,7 @@ const Keys = (props: Props) => {
 
 
   const notyf = new Notyf();
-  // const history = useHistory();
+
 
   const [wRatKeys, setwRatKeys] = useState<string | any >("");
 
@@ -102,8 +102,8 @@ const Keys = (props: Props) => {
 
 
   const downloadKeys = () => {
-    navigator.clipboard.writeText(wRatKeys);
 
+    navigator.clipboard.writeText(wRatKeys);
 
     let secret = sessionStorage.getItem('secret');
     let wRat_Key  =  sessionStorage.getItem('wRatKeys');

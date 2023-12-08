@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { BsBoxArrowInDown, BsDownload } from "react-icons/bs";
+import { BsDownload } from "react-icons/bs";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import { ethers } from "ethers";
-import ToolTip from "../helpers/ToopTip";
+import ToolTip from "../Helpers/Tool";
 import { MdOutlineDone } from "react-icons/md";
 import { TbTransferIn, TbSwitchVertical } from "react-icons/tb";
-import { GelatoRelay, SponsoredCallRequest } from "@gelatonetwork/relay-sdk";
-const relay = new GelatoRelay();
+
+
 
 
 const abi = [
