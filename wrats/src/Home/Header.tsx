@@ -1,77 +1,70 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import screenshot from "../assets/ForusKey.png";
-// import Info from "./Info";
+import Logo from "../Logos/Logo.png";
+import { Link } from "react-scroll";
+import ForusKey from "../assets/ForusKey.png";
+import Banner from "./Banner";
+
 
 const Header = () => {
+  const Valid = () => {
+    // if(!window.tronWeb){
+    //   alert('Please Install Tron Wallet')
+    //   return
+    // }
+    navigate("/wRats");
+  };
+
   const navigate = useNavigate();
   return (
-    <>
+    <div className="bg-[#1E202Dff] p-4 px-7">
+
+      {/* at the bottom of the logo */}
       <div
-        className="bg-[#e9e9f3] xl:px-36 md:px-22 px-8 sm:py-27 py-16 flex
-          justify-between items-center md:flex-row flex-col space-y-1 text-gray-700"
+        className="md:px-22 flex flex-col items-center justify-between space-y-1
+        px-3 py-10 text-gray-700 sm:px-5 sm:py-16 md:flex-row xl:px-52"
       >
         {/* left side */}
-        <div className="flex flex-col items-start space-y-4 ml-6  md:w-[100%]">
-          {/* features  texts */}
-          <div className="flex montserrat-heading font-semibold space-x-4 items-center">
-            {/* inner boxes */}
-            <span
-              className="p-1 px-8 border-2
-             border-gray-600 rounded-full"
-            >
-              Easy to Use
-            </span>
-            <span
-              className="p-1 px-8 border-2
-             border-gray-600 rounded-full"
-            >
-              Secure
-            </span>
-          </div>
-
+        <div className="flex flex-col items-start space-y-4">
           <h2
-            className="flex text-gray-700 space-y-1 xl:-space-y-2 flex-col montserrat-heading font-extrabold
-            text-left text-[1.2rem] md:text-[1.5rem] xl:text-[2.4rem]"
+            className="montserrat-subheading text-left text-[1.7rem] font-bold 
+          text-gray-200 sm:text-[2.3rem] xl:text-[3.3rem]"
           >
-            {/* Receive Eth and tokens with forus confidentially !! */}
-            <span>Anonymous & Secure</span>
-            <span>transactions</span>
+            Keep Anonymous & secure.
           </h2>
           <p
-            className="montserrat-heading font-semibold pb-1 text-gray-600
-           text-left break-words  max-w-[700px] sm:text-[1.2rem] text-[1rem]"
+            className="montserrat-small max-w-[400px] break-words
+           text-left text-[1.0rem] text-[#FDF0EF] xl:max-w-[480px] xl:text-[1.3rem]"
           >
-            {/* Breaking the link between sender and receiver. Safeguard Your
-            Financial Interactions with Cutting-edge Cryptography. */}
-            Get funds privately without sharing wallet address !!
+            Receive Avax and tokens privately by sharing only a unique link !
           </p>
-          <button
-            className="border-1 montserrat-subtitle  
-            hover:scale-95 transition-all ease-linear p-1 px-10 rounded-full border-[#48494b] 
-             montserrat-subtitle font-bold  text-xl bg-[#292a2c] text-gray-300"
-            onClick={() => navigate("/wRats")}
-          >
-            Launch App
-          </button>
+          <div className="pt-1">
+            <button
+              className="montserrat-subheading  rounded-full   bg-[#ee6f08] p-2 px-4 text-lg font-bold text-[#1E202Dff]  hover:shadow-xl"
+              onClick={Valid}
+            >
+              Launch app
+            </button>
+          </div>
         </div>
-
-        {/* right Banner */}
-        <div className="flex justify-end items-center ">
+        {/* right image */}
+        <div className="flex items-center justify-end ">
           <img
-            className="md:mt-0 mt-10 rounded-[1.5rem] object-center 
-            shadow-xl shadow-[#757575]"
-            // src={screenshot}
-            height={1200}
-            width={1000}
+            className="sm:[mt-0] mt-10 h-[250px] rounded-[1.5rem] object-center shadow-2xl
+        shadow-[#5e5e5e] md:mt-0 md:w-[480px] lg:h-[246px]
+        xl:h-[290px] xl:w-[520px]"
+            src={ForusKey}
+            // height={1000}
             alt=""
           />
-      
         </div>
-        
       </div>
-      {/* <Info/> */}
-    </>
+
+      <Banner />
+
+    </div>
+
+
   );
 };
 

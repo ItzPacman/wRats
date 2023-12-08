@@ -176,7 +176,7 @@ const Keys = (props: Props) => {
           <div
             className="flex cursor-pointer space-x-2 my-1 montserrat-subtitle p-1
             montserrat-subtitle px-6 text-center text-gray-300 rounded-md font-semibold
-             bg-gray-700 border hover:bg-black hover:border-[#ee6f08] border-[#152F59] min-w-max"
+             bg-gray-700 border  hover:border-[#ee6f08]  min-w-max"
             onClick={generateKeys}
           >
             <IoCreateSharp className="text-[#ee6f08] font-bold text-xl" />
@@ -186,7 +186,7 @@ const Keys = (props: Props) => {
             onClick={downloadKeys}
             className="flex cursor-pointer space-x-2 my-1 montserrat-subtitle p-1
              montserrat-subtitle px-6 text-center text-gray-300 rounded-md font-semibold
-              bg-gray-700 hover:bg-black hover:border-[#ee6f08] border border-gray-600 min-w-max"
+              bg-gray-700  hover:border-[#ee6f08] border border-gray-600 min-w-max"
           >
             <IoDownloadOutline className="font-bold text-[#ee6f08] text-xl" />
             <ToolTip tooltip="Save secret Key">Store Keys</ToolTip>
