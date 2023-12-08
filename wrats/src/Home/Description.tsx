@@ -1,6 +1,6 @@
 import React from "react";
 // import { MdOutlinePrivacyTip, MdSecurity, MdAlarmOn, MdThumbUpOffAlt } from "react-icons/md";
-import ForusKey from "../assets/ForusKey.png";
+import wRatsIcon from "../assets/wRatsIcon.png";
 
 const Description = () => {
     return (
@@ -16,7 +16,7 @@ const Description = () => {
                     <div className="p-4 py-10 md:mx-auto">
                         <img
                             className="w-[789px] rounded-[1rem] outline-none"
-                            src={ForusKey}
+                            src={wRatsIcon}
                             alt=""
                         />
                     </div>
@@ -42,8 +42,8 @@ const Description = () => {
                             </li>
                             <li className="mb-2 text-left text-gray-400">
                                 <span className="font-semibold text-gray-400">Step 4 : </span> After
-                                the funds have been sent, click on <b>Scan</b> or paste your <b>secret Key</b>
-                                to retrieve your private key and access the
+                                the funds have been sent, click on <b>Scan</b> or paste your <b>secret Key </b>
+                                to retrieve the private key and access the
                                 specific stealth address on which the funds have been sent.
                             </li>
                             <li className="mb-2 text-left text-gray-400">

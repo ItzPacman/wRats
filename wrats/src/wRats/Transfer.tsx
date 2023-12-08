@@ -83,7 +83,7 @@ const Transfer = () => {
   var receipentAddress: string;
 
 
-  useEffect(() => {
+  useMemo(() => {
 
     AvaxMetaData.map((chain: any) => {
 
@@ -99,11 +99,11 @@ const Transfer = () => {
     });
    
 
-  }, [network,]);
+  }, [network]);
 
 
 
-  console.log(chainList, network, ContractAddress, sessionStorage.getItem("contractAdd"), txId);
+  console.log(chainList, network, ContractAddress, txId);
 
   const [trxid, settrxid] = useState<string>("");
   const [waiting, setwaiting] = useState<boolean>(false);
@@ -258,8 +258,6 @@ const Transfer = () => {
 
     if (sessionStorage.getItem("address") === null) accountChecker()
 
-
-
     //
 
     setUpStealthAddress();
@@ -270,6 +268,7 @@ const Transfer = () => {
 
     setwaiting(true);
 
+    //
 
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, Abi.abi, signer);
@@ -279,10 +278,7 @@ const Transfer = () => {
 
 
     try {
-      // const valueToSend = ethers.utils.parseEther(amount);
-      // const transactionParameters = {
-      //   value: valueToSend,
-      // };
+    
 
 
       const transfer = await contract.TransferAvax(
@@ -480,7 +476,7 @@ const Transfer = () => {
            hover:border-cyan-900 w-[100%] bg-black/10 border-2 border-gray-600"
           type="text"
           onChange={validatingWratsKey}
-          placeholder="Enter Your Forus Key"
+          placeholder="Paste Receipents key"
           value={wratsKey}
         />
       </div>
@@ -574,7 +570,7 @@ const Transfer = () => {
 
       <p
         onClick={viewtrx}
-        className="montserrat-subtitle flex mx-auto items-center animate-pulse-2s montserrat-small  text-highlight  text-center font-semibold underline underline-offset-8 decoration-bgGray cursor-pointer"
+        className="montserrat-subtitle flex mx-auto items-center animate-pulse-2s montserrat-small  text-[#ee6f08]  text-center font-semibold underline underline-offset-8 decoration-bgGray cursor-pointer"
       >
         {trxid ==='' ? '' : '   Successfully Sent ! Click to view'}
     

@@ -16,25 +16,25 @@ const Features = (props: Props) => {
       >
         <FeatureBlock
           heading="Enhanced Privacy Protection"
-          subheading="Privacy is at the core of Forus's mission, By utilizing stealth addresses, Forus prevents anyone other than the intended recipient from tracing transactions or monitoring financial activities. The secure stealth address acts as a shield, rendering it virtually difficult for unauthorized individuals to gain insights . Forus's commitment to enhanced privacy protection sets it apart as a reliable and trustworthy platform for confidential transactions."
+          subheading="wRats is deeply committed to prioritizing privacy. Through the use of stealth addresses, wRats ensures that only the intended recipient can trace transactions or monitor financial activities. These secure stealth addresses act as a powerful shield, making it extremely challenging for unauthorized individuals to gain any insight. wRats' dedication to bolstering privacy sets it apart as a dependable and trustworthy platform for anonymous transactions"
         >
           <MdPrivacyTip color="#ee6f08" className="text-[60px]" />
         </FeatureBlock>
         <FeatureBlock
           heading="User-Friendly Interface"
-          subheading="Forus sets itself apart by offering a user-friendly interface that prioritizes simplicity and ease of use. Its intuitive design enables both novice and experienced users to navigate the platform effortlessly. The streamlined process of generating unique addresses and initiating transactions ensures a smooth and hassle-free experience. Whether you are new to cryptocurrency or an expert, Forus's user-friendly interface guarantees a seamless and efficient transaction process."
+          subheading="wRats facilitates secure and confidential fund receptions through its advanced system. By employing stealth addresses, recipients can securely receive amounts without disclosing personal identities or sensitive financial information. The sender generates  stealth address upon request using the recipient's unique wRats key, guaranteeing secure and private fund transfers."
         >
           <MdHandshake color="#ee6f08" className="text-[60px] " />
         </FeatureBlock>
         <FeatureBlock
           heading="Secure Fund Transfer"
-          subheading="Forus enables users to receive funds securely and confidentially using its state-of-the-art system. Through the utilization of stealth or secret addresses, the user can receive amount without revealing their identities or sensitive financial details. The sender generates a corresponding stealth address on demand with the help of recipient's unique forus key, ensuring that the funds are sent securely and privately"
+          subheading="wRats empowers secure and confidential fund reception through its cutting-edge system. By employing stealth or secret addresses, users can receive amounts without exposing their identities or sensitive financial details. The sender creates a corresponding stealth address upon request using the recipient's unique wRats key, ensuring secure and private fund transfers."
         >
           <AiOutlineTransaction color="#ee6f08" className="text-[60px]" />
         </FeatureBlock>
         <FeatureBlock
           heading="Unique Address Generation"
-          subheading="Forus revolutionizes the way addresses are generated for transactions, ensuring unparalleled privacy and security. With its innovative one-time public key mechanism, each transaction generates a fresh and unique address. This approach eliminates the risks associated with reusing addresses and significantly reduces the chances of transaction tracing or information leaks. By employing this advanced technique, Forus provides users with a foolproof method to safeguard their financial information."
+          subheading="wRats transforms address generation for transactions, prioritizing unmatched privacy and security. Using its innovative one-time public key mechanism, each transaction yields a new, distinct address. This eliminates risks linked to address reuse and vastly reduces tracing or information leaks. Through this advanced technique, wRats offers users a foolproof means to protect their financial information"
         >
           <MdNewReleases color="#ee6f08" className="text-[60px]" />
         </FeatureBlock>

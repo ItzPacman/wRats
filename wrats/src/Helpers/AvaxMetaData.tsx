@@ -28,7 +28,7 @@ interface chain {
 export const AvaxMetaData: chain[] = [
   
     {
-        name: "Avalanche Fuji", contract: '', chainId: "0xa869", symbol: avax, currency: { symbol: "AVAX", decimals: 18 }, rpcs: ['https://api.avax-test.network/ext/bc/C/rpc'], url: "https://testnet.avax.network", 
+        name: "Avalanche Fuji", contract: '0xf47fd57b08263Db11D9a039268b3b2975D0c3A36', chainId: "0xa869", symbol: avax, currency: { symbol: "AVAX", decimals: 18 }, rpcs: ['https://api.avax-test.network/ext/bc/C/rpc'], url: "https://testnet.avax.network", 
         tokens: [
 
             { name: "AVAX", address: "", symbol: avax },

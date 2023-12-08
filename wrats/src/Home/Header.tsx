@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logos/Logo.png";
 import { Link } from "react-scroll";
-import ForusKey from "../assets/ForusKey.png";
+import wRatsIcon from "../assets/wRatsIcon.png";
 import Banner from "./Banner";
 
 
@@ -30,7 +30,7 @@ const Header = () => {
             className="montserrat-subheading text-left text-[1.7rem] font-bold 
           text-gray-200 sm:text-[2.3rem] xl:text-[3.3rem]"
           >
-            Keep Anonymous & secure.
+            Stay Anonymous & secure.
           </h2>
           <p
             className="montserrat-small max-w-[400px] break-words
@@ -53,7 +53,7 @@ const Header = () => {
             className="sm:[mt-0] mt-10 h-[250px] rounded-[1.5rem] object-center shadow-2xl
         shadow-[#5e5e5e] md:mt-0 md:w-[480px] lg:h-[246px]
         xl:h-[290px] xl:w-[520px]"
-            src={ForusKey}
+            src={wRatsIcon}
             // height={1000}
             alt=""
           />

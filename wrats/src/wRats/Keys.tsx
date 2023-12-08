@@ -92,7 +92,7 @@ const Keys = (props: Props) => {
 
   const copywRatKeys = () => {
 
-    navigator.clipboard.writeText(`https://wrats.io/main?key=${wRatKeys}`);
+    navigator.clipboard.writeText(`http://localhost:3000/wRats?key=${wRatKeys}`);
     notyf.success("Copied");
     setAddressCopied(true);
   
@@ -180,7 +180,7 @@ const Keys = (props: Props) => {
             onClick={generateKeys}
           >
             <IoCreateSharp className="text-[#ee6f08] font-bold text-xl" />
-            <ToolTip tooltip="Generate Fresh Forus Key">Generate New</ToolTip>
+            <ToolTip tooltip="Generate Keys">Generate New</ToolTip>
           </div>
           <div
             onClick={downloadKeys}

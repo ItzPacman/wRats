@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { keccak256 } from "ethers/lib.esm/utils";
 import Abi from "../artifacts/contracts/wRats.sol/wRats.json";
 import EllipticCurve from "elliptic";
+import { TbMoodSad } from "react-icons/tb";
+
 import { ec as EC } from "elliptic";
 import {
   AiOutlineArrowsAlt,
@@ -56,20 +58,21 @@ export const Scan: React.FC<ChildProps> = ({
 
   const [transactionTab, setTransactionTab] = useState(false);
   const [trxList, settrxList] = useState<any>([]);
-  const [logsArray, setlogsArray] = useState<any>([]);
+  const [keysArray, setkeysArray] = useState<any>([]);
 
 
 
-  let currentNetwork: string | any = sessionStorage.getItem("chain");
+  let network: string | any = sessionStorage.getItem("chain");
 
 
 
   const contractaddress: string | any = useMemo(() => {
 
-    const selectedChain = AvaxMetaData.find((item: any) => currentNetwork === item.name);
+    const selectedChain = AvaxMetaData.find((item: any) => network === item.name);
     return selectedChain ? selectedChain.contract : null;
 
-  }, [currentNetwork]);
+
+  }, [network]);
 
 
 
@@ -86,7 +89,7 @@ export const Scan: React.FC<ChildProps> = ({
 
     return new ethers.Contract(contractaddress, Abi.abi, provider);
 
-  }, [provider,contractaddress])
+  }, [provider,contractaddress,])
 
 
 
@@ -130,9 +133,9 @@ export const Scan: React.FC<ChildProps> = ({
 
   const verifysecret = ((sign: any) => {
 
-    if (sign.startsWith('#secret-')) {
+    if (sign.startsWith('wRats-')) {
 
-      setsavedsecretkey(sign.replace('#secret-', '').slice(0, 64));
+      setsavedsecretkey(sign.slice(61));
 
     }
 
@@ -216,7 +219,8 @@ export const Scan: React.FC<ChildProps> = ({
 
   const getKeys = async () => {
 
-    setlogsArray(await contract.retrievePubKeys(BigNumber.from(initValue)));
+    setkeysArray(await contract.retrievePubKeys(BigNumber.from(initValue)));
+    console.log(keysArray)
 
 
     //declaring variables type here
@@ -228,12 +232,12 @@ export const Scan: React.FC<ChildProps> = ({
     let publicKey: any;
     let keys: any
 
-    logsArray.forEach((logs: any) => {
+    generateprivatekey()
 
-      generateprivatekey()
-
+    keysArray.forEach((logs: any) => {
       try {
         keys = `${logs.sharedSecret.replace("0x", "")}04${logs.x_cor.slice(2)}${logs.y_cor.slice(2)}`;
+
 
         if (keys === '00000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
           return false;
@@ -246,8 +250,10 @@ export const Scan: React.FC<ChildProps> = ({
           keyPair = ec.keyFromPublic(publicKey, "hex");
           calculateSecret = secretkey.derive(keyPair.getPublic()); //
           hashedSecret = ec.keyFromPrivate(keccak256(calculateSecret.toArray()));
+          console.log(hashedSecret,"hhhh",keyPair,"hhh",calculateSecret)
 
           calculated_ss = calculateSecret.toArray()[0].toString(16) ;
+          console.log(calculated_ss,keys.slice(0, 2).toString() )
 
 
         }
@@ -259,6 +265,8 @@ export const Scan: React.FC<ChildProps> = ({
 
       try {
         if (calculated_ss.toString() === keys.slice(0, 2).toString()) {
+
+          console.log(calculated_ss.toString())
 
           // calculating private key
 
@@ -315,7 +323,7 @@ export const Scan: React.FC<ChildProps> = ({
         <div className="flex justify-end w-full">
           <div className="py-2 flex justify-between space-x-1 items-center w-full">
             {trxList && trxList.length > 0 && (
-              <h1 className="animate-pulse-2s montserrat-small font-semibold  text-highlight  text-[1rem]">
+              <h1 className="animate-pulse-2s montserrat-small font-semibold  text-[#ee6f08] text-[1rem]">
                 <span>{trxList.length}</span> Transaction Found !{" "}
               </h1>
             )}
@@ -335,7 +343,7 @@ export const Scan: React.FC<ChildProps> = ({
       {transactionTab ? (
         trxList && trxList.length > 0 ? (
           trxList.map((z: any, i: any) => (
-            <div className="pt-4 flex justify-between px-6 text-highlight bg-gray-0">
+            <div className="pt-4 flex justify-between px-6 text-[#ee6f08] bg-gray-0">
               <div className="flex flex-col space-y-2">
                 <h2 className="text-left montserrat-small font-semibold">Address </h2>
                 <p className="text-gray-400">{z.address}</p>
@@ -350,13 +358,13 @@ export const Scan: React.FC<ChildProps> = ({
                   <ToolTip tooltip="Copy Private key">
                     <AiOutlineCopy
                       onClick={() => copykey(z.key, i)}
-                      className={`text-gray-400 hover:text-green-400 font-bold cursor-pointer text-[1.2rem]`}
+                      className={`text-gray-400  font-bold cursor-pointer text-[1.2rem]`}
                     />
                   </ToolTip>
                 ) : (
                   <MdOutlineDone
                     // onClick={() => copykey(z.key)}
-                    className={`text-green-500 font-bold text-[1.2rem] text-highlight`}
+                    className={` font-bold text-[1.2rem] text-[#ee6f08]`}
                   />
                 )}
               </div>
@@ -364,9 +372,13 @@ export const Scan: React.FC<ChildProps> = ({
 
           ))
         ) : (
-          <h1 className="mb-12 text-center relative top-5 text-xl montserrat-small font-semibold  text-red-400">
-            No Transactions Recorded !
+          <div className="flex justify-center items-center mt-6">
+             <TbMoodSad className=" text-[#ee6f08] text-[1.5rem] "/>
+          <h1 className=" text-center relative  text-xl montserrat-small font-semibold text-[#ee6f08]">
+           ops No Transaction 
           </h1>
+        
+          </div>
         )
       ) : (
         <div>
@@ -379,7 +391,7 @@ export const Scan: React.FC<ChildProps> = ({
             hover:border-cyan-900 w-[100%] bg-black/10 border-2 border-gray-600"
                 value={savedsecretkey}
                 onChange={(e) => {
-                  setsavedsecretkey(e.target.value);
+                  // setsavedsecretkey(e.target.value);
                   verifysecret(e.target.value);
                 }}
                 placeholder="Paste your secret file..."

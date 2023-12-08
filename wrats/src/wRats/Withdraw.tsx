@@ -234,7 +234,7 @@ const Withdraw = ({
               onChange={(e) => {
                 setreceipentAdd(e.target.value);
               }}
-              placeholder="Enter receipentAddipient Address"
+              placeholder="Enter receipent address"
             />
           ) : (
             <h3 className="text-[0.95rem] text-gray-400 montserrat-subtitle font-semibold ">
@@ -247,11 +247,11 @@ const Withdraw = ({
               <ToolTip tooltip="Get funds in the Connected wallet !">
                 <TbSwitchVertical
                   onClick={toggle}
-                  className="text-[1.8rem] text-highlight cursor-pointer"
+                  className="text-[1.8rem] text-[#ee6f08] cursor-pointer"
                 />
               </ToolTip>
             </div>
-            <ToolTip tooltip={(masterkey == "") ? "Load Private Key" : "Private Key Loaded !"}>
+            <ToolTip tooltip={(masterkey === "") ? "Load Private Key" : "Private Key Loaded !"}>
               <button
                 onClick={handleFileUpload}
                 className="text-[0.9rem] pl-3  border-l border-gray-500 text-gray-400 p-1 font-semibold montserrat-small"
@@ -263,7 +263,7 @@ const Withdraw = ({
                   />
                 ) : (
                   <MdOutlineDone
-                    className="cursor-pointer  text-highlight"
+                    className="cursor-pointer  text-[#ee6f08]"
                     size={28}
                   />
                 )}

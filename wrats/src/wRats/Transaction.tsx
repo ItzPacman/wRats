@@ -59,7 +59,7 @@ const Transactions = (props: Props) => {
       >
         <button
           onClick={handleTransferClick}
-          className={`text-left sm:px-6 py-1 border-b-2 border-black
+          className={`text-left sm:px-6 py-1 border-b-1 border-gray-500
         ${buttonStatus.transfer
               ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-[#ee6f08]"
               : "text-gray-400"
@@ -69,9 +69,9 @@ const Transactions = (props: Props) => {
         </button>
         <button
           onClick={handleScanClick}
-          className={`px-6 py-1 border-b-2 border-black
+          className={`px-6 py-1  border-b-1 border-gray-500
           ${buttonStatus.Scan
-              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-#[#ee6f08]"
+              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-[#ee6f08]"
               : "text-gray-400"
             }`}
         >
@@ -79,9 +79,9 @@ const Transactions = (props: Props) => {
         </button>
         <button
           onClick={handleWithdrawClick}
-          className={`sm:px-6 py-1 border-b-2 border-black
+          className={`sm:px-6 py-1 border-b-1 border-gray-500
           ${buttonStatus.withdraw
-              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-#[#ee6f08]"
+              ? "shadow-2xl border-b-2 border-[#ee6f08] text-transparent bg-clip-text bg-[#ee6f08]"
               : "text-gray-400"
             }`}
         >

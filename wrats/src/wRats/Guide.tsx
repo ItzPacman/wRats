@@ -46,32 +46,31 @@ const Instruction = (props: Props) => {
               <p>More than {totalAddress} stealth addresses have been generated</p>
             </div>
           </div>
-        ) : show === "receive" ? (
+        ) : show === "Scan" ? (
           <div className="flex text-left flex-col gap-3">
             {" "}
             {/* on Accept */}
             <h1 className="montserrat-subheading text-gray-300 font-semibold text-[1.5rem]">
-              Receive
+              Scan
             </h1>
             <div className="py-4 montserrat-heading text-gray-300 flex flex-col gap-4 items-start">
               <div className="flex space-x-2">
                 <MdVerifiedUser className="text-[#ee6f08] "size={29} />
                 <p className="flex-1">
-                  Click on the <b>Scan</b> button , paste your <b>Signature key</b> in the designated field
+                  Click on the <b>Scan</b> button , paste your <b>secret file key</b> in the designated field
                 </p>
               </div>
               <div className="flex space-x-2">
                 <MdVerifiedUser className="text-[#ee6f08] "size={29} />
                 <p className="flex-1">
-                  Click on view transaction to see the list of transaction sent through your forus key.
+                  Click on view transaction to see the list of addresses waiting for you.
                 </p>
               </div>
 
               <div className="flex space-x-2">
                 <MdVerifiedUser className="text-[#ee6f08] "size={29} />
                 <p className="flex-1">
-                  Copy the private key of your stealth address and gain access to the funds sent to your
-                  stealth address.
+                  Now copy & save the private key of your stealth addresses and gain access to the funds sent to you.
                 </p>
               </div>
             </div>
@@ -93,14 +92,13 @@ const Instruction = (props: Props) => {
               <div className="flex space-x-2">
                 <MdVerifiedUser className="text-[#ee6f08] "size={29} />
                 <p className="flex-1">
-                Load your #wallet-privateKey to help you withdraw funds easily . If already loaded ✔. Cool! 
-                just pass the receipent address or use the connected wallet as receipent!
+                Load your saved private key and enter the receipent address to where you wanna withdraw funds
                 </p>
               </div>
               <div className="flex space-x-2">
                 <MdVerifiedUser className="text-[#ee6f08] "size={29} />
                 <p className="flex-1">
-                  Click on the "Withdraw" button to withdraw funds from stealth address to receipent's address.
+                  Click on the <b>Withdraw</b> button to withdraw funds from stealth address.
                 </p>
               </div>
 
