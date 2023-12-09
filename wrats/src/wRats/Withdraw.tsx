@@ -197,7 +197,7 @@ const Withdraw = ({
         const txResponse = await wallet.sendTransaction(tx);
 
         console.log('Transaction sent:', txResponse);
-        seterror('Successfully sent!');
+        seterror('Successfully Withdrawn !');
       }
       else {
         seterror('Insufficient funds to cover Gas fee !');
@@ -287,10 +287,12 @@ const Withdraw = ({
           <TbTransferIn className="text-[1.3rem] text-inherit" />
           <span>{isSuccessfull}</span>
         </button>
+
+        
       </div>
 
-      <p className={`text-[.9rem] font-bold montserrat-small ${error === 'Successfully sent!' ? 'montserrat-subtitle flex mx-auto items-center animate-pulse-2s montserrat-small  text-highlight  text-center font-semibold underline underline-offset-8 decoration-bgGray cursor-pointer ' : 'text-red-500'}`}>
-        {error}
+      <p className={`text-[1rem]  flex justify-center  items-center font-bold montserrat-small ${error === 'Successfully Withdrawn !' ? ' animate-pulse-2s   text-[#ee6f08]  font-semibold underline underline-offset-8  ' : 'text-red-500'}`}>
+        {error} 
       </p>
 
     </div>
