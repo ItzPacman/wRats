@@ -139,23 +139,14 @@
   }
 }
 
-/* highlight Color */
-/* .highlight { */
-  /* background-image: linear-gradient(to right top, #073170, #004d7a, #008793, #5AD8CC); */
-  /* background-image: linear-gradient(to right top, #5ad8cc, #6addd2, #78e2d7, #85e6dd, #92ebe2); */
-  /* background: linear-gradient(114deg, rgb(18, 90, 85) 35%, rgb(42, 68, 66) 49%, rgba(90,216,204,1) 71%); */
-  /* background: linear-gradient(114deg, rgb(173, 255, 248) 0%, rgba(90,216,204,1) 90%); */
-  /* background: linear-gradient(90deg, rgba(0,28,26,1) 0%, rgba(90,216,204,1) 57%, rgba(209,217,214,1) 100%); */
-/* } */
+
 
 .highlight {
   background: #ee6f08;
-  /* background: linear-gradient(to right, #C180F7, #CD56BB, #D83084); */
+
 }
 
-/* .highlight:hover {
-  background: transparent;
-} */
+
 
 .hightlightText {
   color: #ee6f08;
@@ -170,8 +161,4 @@
     background-size: 200% 200%;
     background-position: right center;
   }
-}
-
-.ribbon-animation {
-  animation: gradient-animation 15s ease infinite;
 }
