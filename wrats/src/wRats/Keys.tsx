@@ -6,7 +6,7 @@ import { ec as EC } from "elliptic";
 import { AiOutlineCopy } from "react-icons/ai";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
-import  {DownloadKeys}  from  "../Helpers/DownloadKeys"
+import { DownloadKeys } from "../Helpers/DownloadKeys"
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import ToolTip from "../Helpers/Tool";
 import { IoCreateSharp, IoDownloadOutline } from "react-icons/io5";
@@ -26,7 +26,7 @@ const Keys = (props: Props) => {
   const notyf = new Notyf();
 
 
-  const [wRatKeys, setwRatKeys] = useState<string | any >("");
+  const [wRatKeys, setwRatKeys] = useState<string | any>("");
 
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
 
@@ -95,7 +95,7 @@ const Keys = (props: Props) => {
     navigator.clipboard.writeText(`http://localhost:3000/wRats?key=${wRatKeys}`);
     notyf.success("Copied");
     setAddressCopied(true);
-  
+
 
   };
 
@@ -106,7 +106,7 @@ const Keys = (props: Props) => {
     navigator.clipboard.writeText(wRatKeys);
 
     let secret = sessionStorage.getItem('secret');
-    let wRat_Key  =  sessionStorage.getItem('wRatKeys');
+    let wRat_Key = sessionStorage.getItem('wRatKeys');
     const content = `${wRat_Key}\nsecret-${secret}`;
     DownloadKeys(content, 'wRats-keys.txt');
   };
@@ -114,7 +114,7 @@ const Keys = (props: Props) => {
 
 
   return (
-    <main className="shadow-2xl shadow-[#1E202Dff]">
+    <main className="shadow-2xl shadow-[#2a2c3b]">
       <div
         className="relative w-full xl:justify-between h-full rounded-md bg-no-repeat 
         flex flex-col lg:flex-row items-start gap-3 lg:gap-6 justify-start py-4 px-3 md:px-6 rounded-t-md z-10
@@ -135,7 +135,7 @@ const Keys = (props: Props) => {
               (Copy & Share Link)
             </span>
           </h1>
-          {/* Forus */}
+
           <div className="flex space-x-2 pt-2">
             <div className="my-2 flex sm:gap-4 items-center p-2 sm:px-3
              sm:mx-0 mx-3 bg-gray-600 rounded-md hover:shadow-sm shadow-gray-400 px-2">
@@ -146,19 +146,19 @@ const Keys = (props: Props) => {
             </div>
             <div className="flex items-center text-white md:space-x-3">
               <ToolTip tooltip="Copy Link">
-              
-                   {addressCopied ? (
-              <MdOutlineDone
-                className={` text-white font-bold text-[1.1rem] "text-white `}
-              />
-            ) : (
-              <AiOutlineCopy
-                className={`" cursor-pointer flex-bold inline-flex mt-2" : "hidden"
+
+                {addressCopied ? (
+                  <MdOutlineDone
+                    className={` text-white font-bold text-[1.1rem] "text-white `}
+                  />
+                ) : (
+                  <AiOutlineCopy
+                    className={`" cursor-pointer flex-bold inline-flex mt-2" : "hidden"
                         } text-white font-bold text-[1.2rem] "text-white `}
-                  onClick={copywRatKeys}
-                      
-              />
-            )}
+                    onClick={copywRatKeys}
+
+                  />
+                )}
               </ToolTip>
             </div>
           </div>
@@ -166,7 +166,7 @@ const Keys = (props: Props) => {
           sm:text-[0.8rem] montserrat-small font-semibold">
             <AiOutlineInfoCircle size={20} color="#fff" className="ml-1" />
             <p className="ml-2 montserrat-small text-[0.9rem] ">
-            Always share Link. Keep your <span className=" font-bold">secret</span> secure .
+              Always share Link. Keep your <span className=" font-bold">secret</span> secure .
             </p>
           </div>
         </div>

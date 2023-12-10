@@ -1,4 +1,4 @@
-import  Logo from "../Logos/Logo.png";
+import Logo from "../Logos/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "./Container";
@@ -6,7 +6,7 @@ import { IoMdHome } from "react-icons/io";
 // import { HiQuestionMarkCircle } from "react-icons/hi";
 import { useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
-import { MdArrowDropUp, MdOutlineDone } from "react-icons/md";
+import { MdArrowDropUp, } from "react-icons/md";
 import { AiOutlineCopy } from "react-icons/ai";
 
 type Props = {};
@@ -15,7 +15,7 @@ const Header = (props: Props) => {
   const connect = useContext(AppContext);
   const navigate = useNavigate();
   const [show, setshow] = useState<boolean>(false);
-  const [isAddrHovered, setIsAddrHovered] = useState<boolean>(false);
+  const [, setIsAddrHovered] = useState<boolean>(false);
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
   console.log("connect : ", connect.userBalance);
 
@@ -51,13 +51,9 @@ const Header = (props: Props) => {
         {/* leftside Logo */}
         <div
           className="flex items-center cursor-pointer"
-          onClick={() => navigate("/")}
         >
           <div className="flex items-center Logo-div">
             <img src={Logo} alt="" className="Logo w-[102px] h-[95px]" />
-            {/* <h1 className="-ml-1 montserrat-subtitle sm:text-[1.5rem] font-bold text-[1.4rem] text-white">
-
-            </h1> */}
           </div>
           {/* Navigation Buttons */}
           <div className="flex items-center sm:space-x-8">
@@ -71,14 +67,14 @@ const Header = (props: Props) => {
               <p className="sm:inline-flex hidden text-gray-300  n">Home</p>
             </button>
 
-            </div>
+          </div>
         </div>
 
         {/* rigt side */}
         <div className="sm:flex-row flex space-x-3 items-center">
-    
+
           <div className="lg:flex space-x-3 items-center">
-           
+
             {sessionStorage.getItem("address") !== null && (
               <div
                 className="sm:static absolute left-3 bottom-2 montserrat-subtitle border-1 
@@ -165,11 +161,11 @@ const Header = (props: Props) => {
                   : ""}
               </p>
             </div>
-      
-              <AiOutlineCopy  onClick={copyAddress}
-                className="inline-flex cursor-pointer  font-bold text-[1.2rem] text-[#8a8a91]"
-              />
-      
+
+            <AiOutlineCopy onClick={copyAddress}
+              className="inline-flex cursor-pointer  font-bold text-[1.2rem] text-[#8a8a91]"
+            />
+
           </div>
           {sessionStorage.getItem("address") === null || false ? (
             <button

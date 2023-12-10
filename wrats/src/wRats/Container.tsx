@@ -23,10 +23,8 @@ interface ContextValue {
   userBalance: string;
   accountChecker(): void
   currentChain: string;
-  totalfunds: string | any;
-  settotalfunds: React.Dispatch<React.SetStateAction<string | any>>;
-  totalAddress: string | any;
-  settotalAddress: React.Dispatch<React.SetStateAction<string | any>>;
+  totalfunds: number ;
+  totalAddress: number;
   AvaxMetaData: [] | any;
   handleChainChange(chainId: any): void | any;
 }
@@ -41,8 +39,8 @@ const Container = (props: Props) => {
   const notyf = new Notyf();
 
   const [show, setShow] = useState<string>("transfer");
-  const [totalfunds, settotalfunds] = useState<string | any>("0");
-  const [totalAddress, settotalAddress] = useState<string | any>("0");
+  const [totalfunds, settotalfunds] = useState<number>(0);
+  const [totalAddress, settotalAddress] = useState<number>(0);
 
   const currentChain: string | any = sessionStorage.getItem("chain");
 
@@ -63,7 +61,7 @@ const Container = (props: Props) => {
 
     AvaxMetaData.map((chain: any) => {
       if (sessionStorage.getItem("chain") !== chain.name) {
-        return;
+        return false;
       } else {
         const customChain = {
           chainId: chain.chainId,
@@ -96,20 +94,14 @@ const Container = (props: Props) => {
           theContract.getTotalVolume(),
         ]);
 
-        settotalAddress(totalAddresses.toString());
-        settotalfunds(totalFunds / 10 ** 18);
+        settotalAddress(parseInt(totalAddresses));
+        settotalfunds(parseInt(totalFunds) / 10 ** 18);
       }
     } catch (error) {
       console.error("Error fetching chain data:", error);
     }
   };
 
-  useEffect(() => {
-
-
-    fetchCurrentChainData()
-
-  }, [show,]);
 
   const [userBalance, setUserBalance] = useState<string>("");
 
@@ -131,9 +123,13 @@ const Container = (props: Props) => {
 
 
   useEffect(() => {
-    ValidateChainData();
+
+
     accountChecker();
-  }, [ValidateChainData,]);
+    fetchCurrentChainData()
+    ValidateChainData();
+
+  }, [ethereum]);
 
   useEffect(() => {
     if (ethereum) {
@@ -173,10 +169,8 @@ const Container = (props: Props) => {
     AvaxMetaData,
     connectWallet,
     totalfunds,
-    userBalance,
-    settotalfunds,
+    userBalance, 
     totalAddress,
-    settotalAddress,
     handleChainChange,
     currentChain,
     accountChecker
@@ -185,10 +179,9 @@ const Container = (props: Props) => {
 
   return (
     <AppContext.Provider value={ContextValue}>
+
       <div className=" bg-[#1E202Dff] relative w-full h-full">
-        <div
-          className="absolute top-0 right-0 w-full h-full rounded-md "
-        ></div>
+
         <div className=" max-h-max min-h-[100vh] ">
 
 
@@ -199,8 +192,6 @@ const Container = (props: Props) => {
             py-8 p-4"
           >
             <div className="relative m-auto lg:w-[94%] xl:w-[96%] w-[100%] h-full">
-              <div className="border border-gray-500 shadow-gray-800 absolute top-0 right-0 w-full h-full rounded-md 
-            bg-[#1E202Dff]"></div>
               <Keys />
             </div>
             <div

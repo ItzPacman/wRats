@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Transfer from "./Transfer";
-import {Scan} from "./Scan"
+import { Scan } from "./Scan"
 
 import { useContext } from "react";
 import { AppContext } from "./Container";
@@ -10,12 +10,12 @@ type Props = {};
 
 const Transactions = (props: Props) => {
 
-  const { setShow ,show} = useContext(AppContext);
+  const { setShow, show } = useContext(AppContext);
   const [buttonStatus, setButtonStatus] = useState({
     transfer: true,
     Scan: false,
     withdraw: false,
-    
+
   });
 
   const [masterkey, setmasterkey] = useState<string | any>("");
