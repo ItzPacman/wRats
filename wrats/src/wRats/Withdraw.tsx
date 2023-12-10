@@ -99,14 +99,14 @@ const Withdraw = ({
 
       // Get the gas price
       const gasPrice: ethers.BigNumber = await provider.getGasPrice();
-      console.log(`Gas Price (Gwei): ${ethers.utils.formatUnits(gasPrice, 'gwei')}`);
+      // console.log(`Gas Price (Gwei): ${ethers.utils.formatUnits(gasPrice, 'gwei')}`);
 
       const gasLimit: ethers.BigNumber = ethers.BigNumber.from(21000);
       // console.log(`Gas Limit: ${gasLimit}`);
 
       // Calculate the gas cost based on the gas limit and gas price
       const gasCost: ethers.BigNumber = gasPrice.mul(gasLimit);
-      console.log(gasCost);
+      // console.log(gasCost);
 
       // Calculate the amount to send
       // const balance: ethers.BigNumber = await provider.getBalance('YOUR_ADDRESS');
