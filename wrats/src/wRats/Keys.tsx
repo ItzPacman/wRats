@@ -92,7 +92,7 @@ const Keys = (props: Props) => {
 
   const copywRatKeys = () => {
 
-    navigator.clipboard.writeText(`http://localhost:3000/wRats?key=${wRatKeys}`);
+    navigator.clipboard.writeText(`https://wrats.netlify.app/wRats?key=${wRatKeys}`);
     notyf.success("Copied");
     setAddressCopied(true);
 

@@ -14,7 +14,7 @@ const Banner = () => {
             </div>
             <div className="flex flex-col items-center gap-1">
                 <h2 className="text-[1.4rem] font-bold text-gray-200 md:text-[2.1rem] xl:text-[2.6rem]">
-                    TBD
+                    15
                 </h2>
                 <p className="text-[1rem] font-bold text-[#ee6f08] md:text-[1.2rem]">
                     Total Transactions
@@ -22,7 +22,7 @@ const Banner = () => {
             </div>
             <div className="flex flex-col items-center gap-1">
                 <h2 className="text-[1.4rem] font-bold text-gray-200 md:text-[2.1rem] xl:text-[2.6rem]">
-                    TBD
+                    20 sec
                 </h2>
                 <p className="text-[1rem] font-bold text-[#ee6f08] md:text-[1.2rem]">
                     Average Tx Time

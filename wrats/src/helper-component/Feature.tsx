@@ -22,7 +22,6 @@ const Feature = (props: Props) => {
             {props.heading}
           </h4>
         </div>
-        {/* <i>privacy</i> */}
         <p
           className="leading-6  w-[75%] md:text-md text-base text-gray-400 
             font-light montserrat-subheading"

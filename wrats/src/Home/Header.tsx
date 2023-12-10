@@ -21,8 +21,8 @@ const Header = () => {
 
       {/* at the bottom of the logo */}
       <div
-        className="md:px-22 flex flex-col items-center justify-between space-y-1
-        px-3 py-10 text-gray-700 sm:px-5 sm:py-16 md:flex-row xl:px-52"
+        className="md:px-22 flex items-center justify-between space-y-1
+        px-3 py-10 text-gray-600 sm:px-5 sm:py-16 md:flex-row xl:px-52"
       >
         {/* left side */}
         <div className="flex flex-col items-start space-y-4">
@@ -40,7 +40,7 @@ const Header = () => {
           </p>
           <div className="pt-1">
             <button
-              className="montserrat-subheading  rounded-full   bg-[#ee6f08] p-2 px-4 text-lg font-bold text-[#1E202Dff]  hover:shadow-xl"
+              className="montserrat-subheading  rounded-full   bg-[#ee6f08] p-2 px-6 text-lg font-bold text-[#1E202Dff]  hover:shadow-xl"
               onClick={Valid}
             >
               Launch app
