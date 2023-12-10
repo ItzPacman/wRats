@@ -66,7 +66,7 @@ const Transfer = () => {
   const [txId, settxID] = useState<string | "">("");
 
 
-  const msgSender = useMemo(() => {
+  const sender = useMemo(() => {
 
     return sessionStorage.getItem("address");
 
@@ -114,7 +114,7 @@ const Transfer = () => {
 
 
 
-  //helpers functuion to validate  keys
+  //helpers functuion to validate wRats  keys
 
 
   const validatingWratsKey = (event: any) => {
@@ -157,13 +157,14 @@ const Transfer = () => {
 
 
   //receipent public key or Link
-  let shared_wratsKey: EC.KeyPair | any;
+  let shared_wratsKey: EC.KeyPair ;
 
 
 
   //ec keypair use to generate private numbers and public stealth address
   let keypair: EC.KeyPair = ec.genKeyPair();
-  //one time ephemeral public key to be published in logs directory contract
+
+  //one time ephemeral public key to be published in wRats directory contract
   let ephPublicKey: any = keypair.getPublic();
 
 
@@ -179,14 +180,11 @@ const Transfer = () => {
 
     try {
 
-    
-
-
       if (wratsKey.slice(0, 6).toLowerCase() === "wrats-") {
         const _wratsKey = wratsKey.slice(6);
 
         /*
-         removing the one bytes suffix from the forus key then decoding it to generate an stealth address
+         removing the one bytes suffix from the  key then decoding it to generate an stealth address
     */
         let decode_wratsKey = base58.decode(_wratsKey);
 
@@ -272,16 +270,12 @@ const Transfer = () => {
 
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, Abi.abi, signer);
-    console.log(ContractAddress)
 
-    console.log(receipentAddress,)
 
 
     try {
     
-
-
-      const transfer = await contract.TransferAvax(
+      const transferFundsToStealthAddress = await contract.TransferAvax(
         x_cor,
         y_cor,
         sharedSecret,
@@ -290,7 +284,7 @@ const Transfer = () => {
       );
  
 
-      const trx = await transfer;
+      const trx = await transferFundsToStealthAddress;
 
       await trx.wait
 
@@ -341,7 +335,7 @@ const Transfer = () => {
 
 
       try {
-        const transferERC20 = await contract.TransferERC20(
+        const transferERC20ToStealthAddress = await contract.TransferERC20(
           x_cor,
           y_cor,
           sharedSecret,
@@ -350,7 +344,7 @@ const Transfer = () => {
           amountParams
         );
 
-        const trx = await transferERC20;
+        const trx = await transferERC20ToStealthAddress;
         await trx.wait
 
         settrxid(txId + trx.hash);
@@ -378,7 +372,7 @@ const Transfer = () => {
 
     try {
       const allowance = await contract.allowance(
-        msgSender, ContractAddress
+        sender, ContractAddress
 
       );
 
@@ -433,7 +427,7 @@ const Transfer = () => {
     const contract = new ethers.Contract(token, TokenABI, provider);
 
     try {
-      const balance = await contract.balanceOf(msgSender);
+      const balance = await contract.balanceOf(sender);
       const bigNumber = new BigNumber(balance._hex);
 
       const erc20Balance: any = bigNumber.toNumber() / 10 ** 18;

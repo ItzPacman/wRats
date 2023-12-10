@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const FeatureBlock = (props: Props) => {
+const Feature = (props: Props) => {
   return (
     <>
       <div
@@ -34,4 +34,4 @@ const FeatureBlock = (props: Props) => {
   );
 };
 
-export default FeatureBlock;
+export default Feature;

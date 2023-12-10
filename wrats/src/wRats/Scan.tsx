@@ -38,9 +38,7 @@ interface ChildProps {
 export const Scan: React.FC<ChildProps> = ({
   withdrawFunction,
   setmasterkey,
-  // setamountTowithdraw,
-
-
+ 
 }) => {
 
 
@@ -113,16 +111,13 @@ export const Scan: React.FC<ChildProps> = ({
       key: key,
 
     }
-    const arr = trxList.find((e: any) => {
+    const arr = trxList.find((add: any) => {
 
-      // e.address === obj.address
+      return add.address === obj.address
 
     })
 
     if (!arr && Number(balance) > 0) settrxList((objs: any) => [...objs, obj])
-
-
-
 
 
   };
@@ -192,6 +187,7 @@ export const Scan: React.FC<ChildProps> = ({
   useEffect(() => {
 
     if (initValue > 0) {
+
       const timer = setTimeout(() => {
         if (initValue >= 10) {
           setInitValue(initValue - 10); // Update initValue using state
@@ -232,7 +228,11 @@ export const Scan: React.FC<ChildProps> = ({
     let publicKey: any;
     let keys: any
 
+
+
     generateprivatekey()
+
+
 
     keysArray.forEach((logs: any) => {
       try {
@@ -250,10 +250,9 @@ export const Scan: React.FC<ChildProps> = ({
           keyPair = ec.keyFromPublic(publicKey, "hex");
           calculateSecret = secretkey.derive(keyPair.getPublic()); //
           hashedSecret = ec.keyFromPrivate(keccak256(calculateSecret.toArray()));
-          console.log(hashedSecret,"hhhh",keyPair,"hhh",calculateSecret)
 
           calculated_ss = calculateSecret.toArray()[0].toString(16) ;
-          console.log(calculated_ss,keys.slice(0, 2).toString() )
+
 
 
         }
@@ -265,8 +264,6 @@ export const Scan: React.FC<ChildProps> = ({
 
       try {
         if (calculated_ss.toString() === keys.slice(0, 2).toString()) {
-
-          console.log(calculated_ss.toString())
 
           // calculating private key
 
@@ -288,12 +285,15 @@ export const Scan: React.FC<ChildProps> = ({
 
   }
 
+
+
   useEffect(() => {
 
     if (initValue >= 0) {
       getKeys();
     }
   }, [initValue]); // Trigger when initValue changes
+
 
 
   const copykey = (pkey: string, index: number) => {

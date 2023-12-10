@@ -5,17 +5,17 @@ const Footer = () => {
     <div className="flex p-4 w-full ">
       <ul className="flex space-x-8 items-center m-auto">
         <li className="text-[#ee6f08]">
-          <a href="https://discord.gg/keQnv2K8HP">
+          <a href="">
             <FaDiscord size={24} />
           </a>
         </li>
         <li className="text-gray-300">
-          <a href="https://github.com/TheForus">
+          <a href="">
             <FaGithub size={24} />
           </a>
         </li>
         <li className="text-[#ee6f08]">
-          <a href="https://twitter.com/The_Forus">
+          <a href="">
             <FaTwitter size={24} />
           </a>
         </li>

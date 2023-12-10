@@ -116,7 +116,6 @@ const Keys = (props: Props) => {
   return (
     <main className="shadow-2xl shadow-[#1E202Dff]">
       <div
-        // style={{ backgroundImage: `url(${})` }}
         className="relative w-full xl:justify-between h-full rounded-md bg-no-repeat 
         flex flex-col lg:flex-row items-start gap-3 lg:gap-6 justify-start py-4 px-3 md:px-6 rounded-t-md z-10
         bg-[#1E202Dff] border-gray-700 border"
@@ -135,7 +134,6 @@ const Keys = (props: Props) => {
             >
               (Copy & Share Link)
             </span>
-            {/* & get paid privately ! */}
           </h1>
           {/* Forus */}
           <div className="flex space-x-2 pt-2">
