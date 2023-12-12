@@ -12,13 +12,18 @@ const config: HardhatUserConfig = {
   networks: {
 
     fuji: {
-      url: process.env.AVAX_RPC_URL ,
-      accounts: [process.env.PRIVATE_KEY!] ,
+      url: process.env.AVAX_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY!],
       gasPrice: 225000000000,
       chainId: 43113,
 
+    },
+
+    pego: {
+      url: process.env.PEGO_API_URL,
+      accounts: [process.env.PRIVATE_KEY!]
     }
-}
+  }
 
 }
 

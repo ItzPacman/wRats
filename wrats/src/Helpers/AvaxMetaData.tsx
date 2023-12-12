@@ -1,5 +1,6 @@
 import USDT from '../assets/usdt.png'
 import avax from "../assets/avax.png"
+import pego from "../assets/pego.png"
 
 
 interface Token {
@@ -33,6 +34,16 @@ export const AvaxMetaData: chain[] = [
 
             { name: "AVAX", address: "", symbol: avax },
             { name: "USDT", address: "0x36160274b0ed3673e67f2ca5923560a7a0c523aa", symbol: USDT },
+
+        ]
+    },
+      {
+        name: "PEGO Mainnet", contract: '0x8668FE1fEa5963b52fbecbeE02ADED9F13f2B47C', chainId: "0x1343e3e", symbol: pego, currency: { symbol: "PG", decimals: 18 }, rpcs: ['https://pegorpc.com'], url: "https://scan.pego.network/tx/", tokens: [
+
+            { name: "PG", address: "", symbol: pego },
+            { name: "USDT", address: "0x211554151f2f00305f33530fdd3a5d0354927a65", symbol: USDT },
+
+
 
         ]
     },

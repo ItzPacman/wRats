@@ -36,7 +36,7 @@ const Header = () => {
             className="montserrat-small max-w-[400px] break-words
            text-left text-[1.0rem] text-[#FDF0EF] xl:max-w-[480px] xl:text-[1.3rem]"
           >
-            Receive Avax and tokens privately by sharing only a unique link !
+            Get paid privately by sharing only a unique link !
           </p>
           <div className="pt-1">
             <button
