@@ -117,6 +117,3 @@ const Instruction = (props: Props) => {
 
 export default Instruction;
 
-/*
-
-*/

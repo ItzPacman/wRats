@@ -104,11 +104,11 @@ const Keys = (props: Props) => {
   const downloadKeys = () => {
 
     navigator.clipboard.writeText(wRatKeys);
-
     let secret = sessionStorage.getItem('secret');
     let wRat_Key = sessionStorage.getItem('wRatKeys');
     const content = `${wRat_Key}\nsecret-${secret}`;
     DownloadKeys(content, 'wRats-keys.txt');
+    
   };
 
 

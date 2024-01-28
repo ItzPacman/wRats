@@ -202,6 +202,7 @@ contract wRats {
 
         // Emit an event to log the publication of public keys.
         emit publicKeys(x_cor, y_cor, sharedSecret);
+        
     }
 
     // @notice Function to transfer ERC721 token  to a target stealth address
@@ -256,7 +257,7 @@ contract wRats {
     // @param initVal: The initial value required to start retreiving public keys 
      
 
-    function retrievePubKeys(uint256 initVal)
+    function retrievePublicKeys(uint256 initVal)
         public
         view
         returns (publickeys[10] memory)
