@@ -61,7 +61,7 @@ const Transfer = () => {
   const [error, seterror] = useState<string | "">("");
   const [amount, setamount] = useState<string | "">("");
   const [show, setshow] = useState<boolean>(false);
-  const [byDefault, setbyDefault] = useState<string>("ETH");
+  const [byDefault, setbyDefault] = useState<string>("TAREA");
   const [chainList, setchainList] = useState<any>([])
   const [txId, settxID] = useState<string | "">("");
 
