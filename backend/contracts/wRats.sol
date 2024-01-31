@@ -13,7 +13,7 @@ import "./SafeMath.sol";
 
 /**
  * @title wRats
- * @dev This contract allows users to publish their ephemeral public keys on  blockchain,
+ * @dev This contract allows users to publish their ephemeral public keys on  areon blockchain,
  * consisting of the parameters x_cor, y_cor, and sharedSecret.
  * These keys allow the receiver to generate the private key associated with his stealth address.
  * Users publish their ephemeral public keys by invoking the appropriate functions in the contract.
@@ -132,7 +132,7 @@ contract wRats {
     // @param sharedSecret: 1-byte of stealth address prefixed with ephemeral key
     // @param target: The target address (i.e., the recipient's stealth address)
 
-    function TransferAvax(
+    function TransferAreon(
         bytes32 x_cor,
         bytes32 y_cor,
         bytes1 sharedSecret,

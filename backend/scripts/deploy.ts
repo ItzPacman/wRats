@@ -23,5 +23,5 @@ main()
     process.exit(1);
   });
 
-//   SafeMath deployed at: 0xB1EA59521a88405D313d412f3f3EFCF4a329f2dc
-// wRats deployed at: 0xf47fd57b08263Db11D9a039268b3b2975D0c3A36
+  // SafeMath deployed at: 0x9152D9eF04Bf00BE1A408C2b2FE78a87cD9CdcC7
+  // wRats deployed at: 0x2f5Fa595c66d3bB73f18B5932246430772300641
