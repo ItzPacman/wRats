@@ -82,6 +82,8 @@ export const Scan: React.FC<ChildProps> = ({
   }, [ethereum])
 
 
+  console.log(contractaddress)
+
 
   const contract = useMemo(() => {
 
@@ -214,8 +216,10 @@ export const Scan: React.FC<ChildProps> = ({
 
 
   const getKeys = async () => {
+    
+    console.log('contract',contract,BigNumber.from(initValue))
 
-    setkeysArray(await contract.retrievePubKeys(BigNumber.from(initValue)));
+    setkeysArray(await contract.retrievePublicKeys(BigNumber.from(initValue)));
     console.log(keysArray)
 
 

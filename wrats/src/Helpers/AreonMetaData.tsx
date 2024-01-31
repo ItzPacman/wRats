@@ -30,7 +30,7 @@ interface chain {
 export const AreonMetaData: chain[] = [
   
     {
-        name: "Areon Network Testnet", contract: '0x2f5Fa595c66d3bB73f18B5932246430772300641', chainId: "0x1ce", symbol: Area, currency: { symbol: "TAREA", decimals: 18 }, rpcs: ['https://testnet-rpc.areon.network'], url: "https://areonscan.com", 
+        name: "Areon Network Testnet", contract: '0x2f5Fa595c66d3bB73f18B5932246430772300641', chainId: "0x1ce", symbol: Area, currency: { symbol: "TAREA", decimals: 18 }, rpcs: ['https://testnet-rpc.areon.network'], url: "https://areonscan.com/transactions/", 
         tokens: [
 
             { name: "TAREA", address: "", symbol: Area },
