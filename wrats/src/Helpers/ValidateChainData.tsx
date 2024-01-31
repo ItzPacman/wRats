@@ -1,5 +1,5 @@
 
-import { AvaxMetaData } from "./AvaxMetaData";
+import { AreonMetaData } from "./AreonMetaData";
 
 export const ValidateChainData = async () => {
 
@@ -7,7 +7,7 @@ export const ValidateChainData = async () => {
   const { ethereum }: any = window;
   try {
     const chainId = await ethereum.request({ method: "eth_chainId" });
-    const matchingChain = AvaxMetaData.find(
+    const matchingChain = AreonMetaData.find(
       (chain) => chain.chainId === chainId
     );
 

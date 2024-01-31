@@ -9,7 +9,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { ethers } from "ethers";
 import { Notyf } from "notyf";
 import BigNumber from "bignumber.js";
-import { AvaxMetaData } from "../Helpers/AvaxMetaData"
+import { AreonMetaData } from "../Helpers/AreonMetaData"
 import "notyf/notyf.min.css";
 import { BiTransfer } from "react-icons/bi";
 import { TokenABI } from "../Helpers/TokenABI";
@@ -85,7 +85,7 @@ const Transfer = () => {
 
   useMemo(() => {
 
-    AvaxMetaData.map((chain: any) => {
+    AreonMetaData.map((chain: any) => {
 
       if (network === chain.name) {
         setbyDefault(chain.currency.symbol);
@@ -275,7 +275,7 @@ const Transfer = () => {
 
     try {
     
-      const transferFundsToStealthAddress = await contract.TransferAvax(
+      const transferFundsToStealthAddress = await contract.TransferAreon(
         x_cor,
         y_cor,
         sharedSecret,
@@ -540,7 +540,7 @@ const Transfer = () => {
       <div className="w-full flex justify-center mr-4">
         <button
           onClick={() => {
-            const selectedChain = AvaxMetaData.find((chain: any) => chain.currency.symbol === byDefault);
+            const selectedChain = AreonMetaData.find((chain: any) => chain.currency.symbol === byDefault);
             if (selectedChain) {
               Transfer(); // Call Transfer function if the condition is met
             } else {

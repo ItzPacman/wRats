@@ -106,7 +106,7 @@ const Header = (props: Props) => {
                     onMouseLeave={() => setshow(false)}
                   >
                     {show &&
-                      connect.AvaxMetaData.map((chain: any) => (
+                      connect.AreonMetaData.map((chain: any) => (
                         <div className=" hover:bg-slate-500">
                           <li
                             className="flex flex-row-reverse p-1 px-4 cursor-pointer

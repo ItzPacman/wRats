@@ -8,7 +8,7 @@ import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import abi from "../artifacts/contracts/wRats.sol/wRats.json";
 import { ethers } from "ethers";
-import { AvaxMetaData } from "../Helpers/AvaxMetaData"
+import { AreonMetaData } from "../Helpers/AreonMetaData"
 import { ValidateChainData } from "../Helpers/ValidateChainData";
 import { SwitchChain } from "../Helpers/SwitchChain"
 import { IsConnected } from "../Helpers/IsConnected";
@@ -25,7 +25,7 @@ interface ContextValue {
   currentChain: string;
   totalfunds: number ;
   totalAddress: number;
-  AvaxMetaData: [] | any;
+  AreonMetaData: [] | any;
   handleChainChange(chainId: any): void | any;
 }
 
@@ -59,7 +59,7 @@ const Container = (props: Props) => {
 
   const handleChainChange = async (chainId: any) => {
 
-    AvaxMetaData.map((chain: any) => {
+    AreonMetaData.map((chain: any) => {
       if (sessionStorage.getItem("chain") !== chain.name) {
         return false;
       } else {
@@ -84,7 +84,7 @@ const Container = (props: Props) => {
   const fetchCurrentChainData = async () => {
     try {
       const chainId = await ethereum.request({ method: "eth_chainId" });
-      const chain = AvaxMetaData.find((option: any) => option.chainId === chainId);
+      const chain = AreonMetaData.find((option: any) => option.chainId === chainId);
 
       if (chain) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -166,7 +166,7 @@ const Container = (props: Props) => {
   const ContextValue: ContextValue = {
     show,
     setShow,
-    AvaxMetaData,
+    AreonMetaData,
     connectWallet,
     totalfunds,
     userBalance, 

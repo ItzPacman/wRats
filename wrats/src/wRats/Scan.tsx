@@ -16,7 +16,7 @@ import { DownloadKeys } from "../Helpers/DownloadKeys";
 import { ethers, BigNumber } from "ethers";
 import { MdHistory, MdOutlineDone } from "react-icons/md";
 import ToolTip from "../Helpers/Tool";
-import { AvaxMetaData } from "../Helpers/AvaxMetaData"
+import { AreonMetaData } from "../Helpers/AreonMetaData"
 import { IsConnected } from "../Helpers/IsConnected";
 
 
@@ -66,7 +66,7 @@ export const Scan: React.FC<ChildProps> = ({
 
   const contractaddress: string | any = useMemo(() => {
 
-    const selectedChain = AvaxMetaData.find((item: any) => network === item.name);
+    const selectedChain = AreonMetaData.find((item: any) => network === item.name);
     return selectedChain ? selectedChain.contract : null;
 
 
