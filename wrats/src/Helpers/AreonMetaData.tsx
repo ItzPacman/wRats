@@ -1,4 +1,4 @@
-import USDT from '../assets/usdt.png'
+// import USDT from '../assets/usdt.png'
 import Area from "../assets/Area.png"
 
 
@@ -34,7 +34,7 @@ export const AreonMetaData: chain[] = [
         tokens: [
 
             { name: "TAREA", address: "", symbol: Area },
-            { name: "USDT", address: "0x36160274b0ed3673e67f2ca5923560a7a0c523aa", symbol: USDT },
+            // { name: "USDT", address: "0x36160274b0ed3673e67f2ca5923560a7a0c523aa", symbol: USDT },
 
         ]
     },

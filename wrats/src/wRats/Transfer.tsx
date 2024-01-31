@@ -232,6 +232,7 @@ const Transfer = () => {
 
 
       //x and y co-ordinate of ephemeral public key
+      
       x_cor = "0x" + ephPublicKey?.getX().toString(16, 64) || "";
       y_cor = "0x" + ephPublicKey?.getY().toString(16, 64) || "";
 
@@ -363,6 +364,8 @@ const Transfer = () => {
     }
     setwaiting(false);
   };
+
+
 
   async function approve() {
 
